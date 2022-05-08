@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysHomeInfoMapper">
+    
+    <resultMap type="SysHomeInfo" id="SysHomeInfoResult">
+        <result property="homeId"    column="home_id"    />
+        <result property="homeAbout"    column="home_about"    />
+        <result property="homeAbouten"    column="home_aboutEn"    />
+        <result property="homeResearch"    column="home_research"    />
+        <result property="homeResearchen"    column="home_researchEn"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysHomeInfoVo">
+        select home_id, home_about, home_aboutEn, home_research, home_researchEn, create_time, create_by, update_by, update_time, del_flag from sys_home_info
+    </sql>
+
+    <select id="selectSysHomeInfoList" parameterType="SysHomeInfo" resultMap="SysHomeInfoResult">
+        <include refid="selectSysHomeInfoVo"/>
+        <where>  
+            <if test="homeAbout != null  and homeAbout != ''"> and home_about = #{homeAbout}</if>
+            <if test="homeAbouten != null  and homeAbouten != ''"> and home_aboutEn = #{homeAbouten}</if>
+            <if test="homeResearch != null  and homeResearch != ''"> and home_research = #{homeResearch}</if>
+            <if test="homeResearchen != null  and homeResearchen != ''"> and home_researchEn = #{homeResearchen}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysHomeInfoByHomeId" parameterType="Long" resultMap="SysHomeInfoResult">
+        <include refid="selectSysHomeInfoVo"/>
+        where home_id = #{homeId}
+    </select>
+        
+    <insert id="insertSysHomeInfo" parameterType="SysHomeInfo" useGeneratedKeys="true" keyProperty="homeId">
+        insert into sys_home_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="homeAbout != null">home_about,</if>
+            <if test="homeAbouten != null">home_aboutEn,</if>
+            <if test="homeResearch != null">home_research,</if>
+            <if test="homeResearchen != null">home_researchEn,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="homeAbout != null">#{homeAbout},</if>
+            <if test="homeAbouten != null">#{homeAbouten},</if>
+            <if test="homeResearch != null">#{homeResearch},</if>
+            <if test="homeResearchen != null">#{homeResearchen},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysHomeInfo" parameterType="SysHomeInfo">
+        update sys_home_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="homeAbout != null">home_about = #{homeAbout},</if>
+            <if test="homeAbouten != null">home_aboutEn = #{homeAbouten},</if>
+            <if test="homeResearch != null">home_research = #{homeResearch},</if>
+            <if test="homeResearchen != null">home_researchEn = #{homeResearchen},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where home_id = #{homeId}
+    </update>
+
+    <delete id="deleteSysHomeInfoByHomeId" parameterType="Long">
+        delete from sys_home_info where home_id = #{homeId}
+    </delete>
+
+    <delete id="deleteSysHomeInfoByHomeIds" parameterType="String">
+        delete from sys_home_info where home_id in 
+        <foreach item="homeId" collection="array" open="(" separator="," close=")">
+            #{homeId}
+        </foreach>
+    </delete>
+</mapper>
