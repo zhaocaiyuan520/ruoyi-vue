@@ -15,7 +15,7 @@ public class SysLbt extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** 部门id */
+    /** 轮播图 id */
     private Long lbtId;
 
     /** 文件路径 */

@@ -54,7 +54,9 @@ public class SysLbtServiceImpl implements ISysLbtService
     public int insertSysLbt(SysLbt sysLbt)
     {
         sysLbt.setCreateTime(DateUtils.getNowDate());
-        return sysLbtMapper.insertSysLbt(sysLbt);
+        sysLbtMapper.insertSysLbt(sysLbt);
+        Long lbtId = sysLbt.getLbtId();
+        return lbtId.intValue();
     }
 
     /**

@@ -1,7 +1,12 @@
 package com.ruoyi.web.controller.system;
 
+import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.config.RuoYiConfig;
+import com.ruoyi.common.utils.file.FileUploadUtils;
+import com.ruoyi.common.utils.uuid.UUID;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +25,7 @@ import com.ruoyi.system.domain.SysLbt;
 import com.ruoyi.system.service.ISysLbtService;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 轮播图Controller
@@ -101,4 +107,42 @@ public class SysLbtController extends BaseController
     {
         return toAjax(sysLbtService.deleteSysLbtByLbtIds(lbtIds));
     }
+
+    /**
+     * 上传
+     * @param file
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('system:lbt:upload')")
+    @GetMapping("/upload")
+    public AjaxResult upload(MultipartFile file) {
+        SysLbt sysLbt = new SysLbt();
+        String path =  RuoYiConfig.getProfile();
+        String realName = file.getOriginalFilename();
+        sysLbt.setRealName(realName);
+        sysLbt.setFileName(realName);
+        //文件类型为 轮播图
+        sysLbt.setFileType("0");
+        //轮播图 模板文件
+        sysLbt.setFileFlag("1");
+        try {
+            String upload = FileUploadUtils.upload(path, file);
+            sysLbt.setFilePath(upload);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int id = sysLbtService.insertSysLbt(sysLbt);
+        return success(String.valueOf(id));
+
+    }
+
+
+    public static String getRandomName(String realName){
+        int index=realName.lastIndexOf(".");
+        //获取后缀名
+        String fileName=realName.substring(index);
+        String uuidFileName= UUID.randomUUID().toString().replace("-","")+fileName;
+        return uuidFileName;
+    }
+
 }

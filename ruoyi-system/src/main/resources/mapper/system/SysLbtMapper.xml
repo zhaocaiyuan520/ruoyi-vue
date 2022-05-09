@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where lbt_id = #{lbtId}
     </select>
         
-    <insert id="insertSysLbt" parameterType="SysLbt" useGeneratedKeys="true" keyProperty="lbtId">
+    <insert id="insertSysLbt" parameterType="SysLbt"  keyColumn="lbt_id" useGeneratedKeys="true" keyProperty="lbtId">
         insert into sys_lbt
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="filePath != null">file_path,</if>
