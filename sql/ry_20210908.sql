@@ -1044,7 +1044,7 @@ DROP TABLE
 
 CREATE TABLE sys_lbt
 (
-    lbt_id      BIGINT (20) NOT NULL auto_increment COMMENT '部门id',
+    lbt_id      BIGINT (20) NOT NULL auto_increment COMMENT '首页轮播图id',
     file_path   VARCHAR(300) DEFAULT '' COMMENT '文件路径',
     real_name   VARCHAR(300) DEFAULT '' COMMENT '真实名称',
     file_name   VARCHAR(300) DEFAULT NULL COMMENT '地址名称',
