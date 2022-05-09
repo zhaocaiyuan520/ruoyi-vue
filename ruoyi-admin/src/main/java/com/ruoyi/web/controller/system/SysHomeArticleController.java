@@ -42,7 +42,8 @@ public class SysHomeArticleController extends BaseController
     public TableDataInfo list(SysHomeArticle sysHomeArticle)
     {
         startPage();
-        List<SysHomeArticle> list = sysHomeArticleService.selectSysHomeArticleList(sysHomeArticle);
+//        List<SysHomeArticle> list = sysHomeArticleService.selectSysHomeArticleList(sysHomeArticle);
+        List<SysHomeArticle> list = sysHomeArticleService.selectSysHomeArticleListAndPDF(sysHomeArticle);
         return getDataTable(list);
     }
 

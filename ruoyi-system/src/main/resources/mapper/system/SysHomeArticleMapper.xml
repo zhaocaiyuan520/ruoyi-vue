@@ -32,7 +32,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fileId != null "> and file_id = #{fileId}</if>
         </where>
     </select>
-    
+
+    <select id="selectSysHomeArticleListAndPDF" parameterType="SysHomeArticle" resultMap="SysHomeArticleResult">
+        select a.article_id, a.article_type, a.article_name, a.article_nameEn, b.file_name, b.file_path as file_id, a.create_time, a.create_by, a.update_by, a.update_time, a.del_flag
+        from sys_home_article a  left join sys_lbt  b on a.file_id= b.lbt_id
+        <where>
+            <if test="articleType != null  and articleType != ''"> and article_type = #{articleType}</if>
+            <if test="articleName != null  and articleName != ''"> and article_name like concat('%', #{articleName}, '%')</if>
+            <if test="articleNameen != null  and articleNameen != ''"> and article_nameEn = #{articleNameen}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="fileId != null "> and file_id = #{fileId}</if>
+        </where>
+    </select>
     <select id="selectSysHomeArticleByArticleId" parameterType="Long" resultMap="SysHomeArticleResult">
         <include refid="selectSysHomeArticleVo"/>
         where article_id = #{articleId}

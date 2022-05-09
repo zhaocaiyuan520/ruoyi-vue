@@ -28,6 +28,14 @@ public interface SysHomeArticleMapper
     public List<SysHomeArticle> selectSysHomeArticleList(SysHomeArticle sysHomeArticle);
 
     /**
+     * 查询主页详情列表
+     *
+     * @param sysHomeArticle 主页详情  联合文件表查询数据
+     * @return 主页详情集合
+     */
+    public List<SysHomeArticle> selectSysHomeArticleListAndPDF(SysHomeArticle sysHomeArticle);
+
+    /**
      * 新增主页详情
      * 
      * @param sysHomeArticle 主页详情
