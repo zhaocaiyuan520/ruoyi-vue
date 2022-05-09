@@ -95,7 +95,7 @@
 
     <el-table v-loading="loading" :data="lbtList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="部门id" align="center" prop="lbtId" />
+      <el-table-column label="轮播图id" align="center" prop="lbtId" />
       <el-table-column label="文件路径" align="center" prop="filePath" />
       <el-table-column label="真实名称" align="center" prop="realName" />
       <el-table-column label="地址名称" align="center" prop="fileName" />
@@ -121,7 +121,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
