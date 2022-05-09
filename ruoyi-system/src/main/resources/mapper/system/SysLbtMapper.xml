@@ -99,4 +99,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{lbtId}
         </foreach>
     </delete>
+
+
+    <select id="selectSysLbtListByIds" parameterType="String">
+        select * from sys_lbt where lbt_id in
+        <foreach item="lbtId" collection="array" open="(" separator="," close=")">
+            #{lbtId}
+        </foreach>
+    </select>
 </mapper>

@@ -95,4 +95,16 @@ public class SysLbtServiceImpl implements ISysLbtService
     {
         return sysLbtMapper.deleteSysLbtByLbtId(lbtId);
     }
+
+    /**
+     * 批量删除轮播图
+     *
+     * @param lbtIds 需要删除的轮播图主键
+     * @return 结果
+     */
+    @Override
+    public List<SysLbt> selectSysLbtListByIds(Long[] lbtIds)
+    {
+        return sysLbtMapper.selectSysLbtListByIds(lbtIds);
+    }
 }

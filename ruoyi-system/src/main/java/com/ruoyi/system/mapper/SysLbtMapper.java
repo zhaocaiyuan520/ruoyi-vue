@@ -58,4 +58,13 @@ public interface SysLbtMapper
      * @return 结果
      */
     public int deleteSysLbtByLbtIds(Long[] lbtIds);
+
+    /**
+     *
+     * @param lbtIds
+     * @return
+     */
+    public List<SysLbt> selectSysLbtListByIds(Long[] lbtIds);
+
+
 }
