@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
             <if test="fileFlag != null  and fileFlag != ''"> and file_flag = #{fileFlag}</if>
         </where>
+        order by order_num
     </select>
     
     <select id="selectSysLbtByLbtId" parameterType="Long" resultMap="SysLbtResult">
