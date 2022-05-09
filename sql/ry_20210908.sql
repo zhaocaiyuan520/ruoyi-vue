@@ -1097,7 +1097,7 @@ CREATE TABLE sys_home_article
     update_time    datetime COMMENT '更新时间',
     del_flag            char(1)      default '0' comment '删除标志（0代表存在 2代表删除）',
     PRIMARY KEY (article_id)
-) ENGINE = INNODB auto_increment = 200 COMMENT = '主页详情表';
+) ENGINE = INNODB auto_increment = 200 COMMENT = '主页文章表';
 
 
 
