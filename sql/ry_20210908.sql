@@ -1047,7 +1047,7 @@ CREATE TABLE sys_lbt
     lbt_id      BIGINT (20) NOT NULL auto_increment COMMENT '首页轮播图id',
     file_path   VARCHAR(300) DEFAULT '' COMMENT '文件路径',
     real_name   VARCHAR(300) DEFAULT '' COMMENT '真实名称',
-    file_name   VARCHAR(300) DEFAULT NULL COMMENT '地址名称',
+    link_address   VARCHAR(300) DEFAULT NULL COMMENT '跳转地址',
     order_num   INT (4) DEFAULT 0 COMMENT '显示顺序',
     file_type   CHAR(1)      DEFAULT '0' COMMENT '0:首页轮播图，1：PDF文章',
     file_flag   CHAR(1)      DEFAULT '0' COMMENT '0：临时文件，1：模板文件',

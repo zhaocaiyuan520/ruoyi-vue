@@ -17,9 +17,9 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="跳转地址" prop="fileName">
+      <el-form-item label="跳转地址" prop="linkAddress">
         <el-input
-          v-model="queryParams.fileName"
+          v-model="queryParams.linkAddress"
           placeholder="请输入跳转地址"
           clearable
           @keyup.enter.native="handleQuery"
@@ -98,7 +98,7 @@
       <el-table-column label="轮播图id" align="center" prop="lbtId" />
       <el-table-column label="文件路径" align="center" prop="filePath" />
       <el-table-column label="真实名称" align="center" prop="realName" />
-      <el-table-column label="地址名称" align="center" prop="fileName" />
+      <el-table-column label="跳转地址" align="center" prop="linkAddress" />
       <el-table-column label="显示顺序" align="center" prop="orderNum" />
       <el-table-column label="0:首页轮播图，1：PDF文章" align="center" prop="fileType" />
       <el-table-column label="0：临时文件，1：模板文件" align="center" prop="fileFlag" />
@@ -139,8 +139,8 @@
         <el-form-item label="真实名称" prop="realName">
           <el-input v-model="form.realName" placeholder="请输入真实名称" />
         </el-form-item>
-        <el-form-item label="地址名称" prop="fileName">
-          <el-input v-model="form.fileName" placeholder="请输入地址名称" />
+        <el-form-item label="跳转地址" prop="linkAddress">
+          <el-input v-model="form.linkAddress" placeholder="请输入跳转地址" />
         </el-form-item>
         <el-form-item label="显示顺序" prop="orderNum">
           <el-input v-model="form.orderNum" placeholder="请输入显示顺序" />
@@ -191,7 +191,7 @@ export default {
         pageSize: 10,
         filePath: null,
         realName: null,
-        fileName: null,
+        linkAddress: null,
         orderNum: null,
         fileType: null,
         fileFlag: null,
@@ -227,7 +227,7 @@ export default {
         lbtId: null,
         filePath: null,
         realName: null,
-        fileName: null,
+        linkAddress: null,
         orderNum: null,
         fileType: null,
         fileFlag: null,

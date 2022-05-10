@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * 轮播图Controller
- * 点击    新增 上传图片 返回文件id， 输入外链、排序 点击确定 修改操作
+ * 点击    新增 上传图片 返回该条记录的id， 输入外链、排序 点击确定 修改操作
  * @author ruoyi
  * @date 2022-05-08
  */
