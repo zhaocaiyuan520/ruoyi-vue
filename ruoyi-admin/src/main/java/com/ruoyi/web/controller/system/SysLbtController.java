@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * 轮播图Controller
- * 
+ * 点击    新增 上传图片 返回文件id， 输入外链、排序 点击确定 修改操作
  * @author ruoyi
  * @date 2022-05-08
  */
@@ -122,11 +122,10 @@ public class SysLbtController extends BaseController
         String path =  RuoYiConfig.getProfile();
         String realName = file.getOriginalFilename();
         sysLbt.setRealName(realName);
-        sysLbt.setFileName(realName);
         //文件类型为 轮播图
         sysLbt.setFileType("0");
-        //轮播图 模板文件
-        sysLbt.setFileFlag("1");
+        //轮播图 0：临时文件，1：模板文件
+        sysLbt.setFileFlag("0");
         try {
             String upload = FileUploadUtils.upload(path, file);
             sysLbt.setFilePath(upload);

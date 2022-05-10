@@ -26,9 +26,9 @@ public class SysLbt extends BaseEntity
     @Excel(name = "真实名称")
     private String realName;
 
-    /** 地址名称 */
-    @Excel(name = "地址名称")
-    private String fileName;
+    /** 外链地址 */
+    @Excel(name = "外链地址")
+    private String linkAddress;
 
     /** 显示顺序 */
     @Excel(name = "显示顺序")
@@ -72,14 +72,14 @@ public class SysLbt extends BaseEntity
     {
         return realName;
     }
-    public void setFileName(String fileName) 
+    public void setLinkAddress(String linkAddress) 
     {
-        this.fileName = fileName;
+        this.linkAddress = linkAddress;
     }
 
-    public String getFileName() 
+    public String getLinkAddress() 
     {
-        return fileName;
+        return linkAddress;
     }
     public void setOrderNum(Integer orderNum) 
     {
@@ -124,7 +124,7 @@ public class SysLbt extends BaseEntity
             .append("lbtId", getLbtId())
             .append("filePath", getFilePath())
             .append("realName", getRealName())
-            .append("fileName", getFileName())
+            .append("linkAddress", getLinkAddress())
             .append("orderNum", getOrderNum())
             .append("fileType", getFileType())
             .append("fileFlag", getFileFlag())

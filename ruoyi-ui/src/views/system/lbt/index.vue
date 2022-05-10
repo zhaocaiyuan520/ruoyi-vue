@@ -17,10 +17,10 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="地址名称" prop="fileName">
+      <el-form-item label="跳转地址" prop="fileName">
         <el-input
           v-model="queryParams.fileName"
-          placeholder="请输入地址名称"
+          placeholder="请输入跳转地址"
           clearable
           @keyup.enter.native="handleQuery"
         />
