@@ -101,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
 
-    <select id="selectSysLbtListByIds" parameterType="String">
+    <select id="selectSysLbtListByIds" parameterType="String" resultMap="SysLbtResult">
         select * from sys_lbt where lbt_id in
         <foreach item="lbtId" collection="array" open="(" separator="," close=")">
             #{lbtId}
