@@ -58,4 +58,13 @@ public interface ISysLbtService
      * @return 结果
      */
     public int deleteSysLbtByLbtId(Long lbtId);
+
+    /**
+     * 根据idS 查询轮播图列表
+     *
+     * @param lbtIds 轮播图
+     * @return 轮播图集合
+     */
+    public List<SysLbt> selectSysLbtListByIds(Long[] lbtIds);
+
 }

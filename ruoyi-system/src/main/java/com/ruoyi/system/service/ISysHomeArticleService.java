@@ -26,6 +26,13 @@ public interface ISysHomeArticleService
      * @return 主页详情集合
      */
     public List<SysHomeArticle> selectSysHomeArticleList(SysHomeArticle sysHomeArticle);
+    /**
+     * 查询主页详情列表
+     *
+     * @param sysHomeArticle 主页详情
+     * @return 主页详情集合
+     */
+    public List<SysHomeArticle> selectSysHomeArticleListAndPDF(SysHomeArticle sysHomeArticle);
 
     /**
      * 新增主页详情

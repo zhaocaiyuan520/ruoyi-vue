@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
             <if test="fileFlag != null  and fileFlag != ''"> and file_flag = #{fileFlag}</if>
         </where>
+        order by order_num
     </select>
     
     <select id="selectSysLbtByLbtId" parameterType="Long" resultMap="SysLbtResult">
@@ -98,4 +99,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{lbtId}
         </foreach>
     </delete>
+
+
+    <select id="selectSysLbtListByIds" parameterType="String">
+        select * from sys_lbt where lbt_id in
+        <foreach item="lbtId" collection="array" open="(" separator="," close=")">
+            #{lbtId}
+        </foreach>
+    </select>
 </mapper>

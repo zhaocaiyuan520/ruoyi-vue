@@ -43,7 +43,17 @@ public class SysHomeArticleServiceImpl implements ISysHomeArticleService
     {
         return sysHomeArticleMapper.selectSysHomeArticleList(sysHomeArticle);
     }
-
+    /**
+     * 查询主页详情列表
+     *
+     * @param sysHomeArticle 主页详情
+     * @return 主页详情
+     */
+    @Override
+    public List<SysHomeArticle> selectSysHomeArticleListAndPDF(SysHomeArticle sysHomeArticle)
+    {
+        return sysHomeArticleMapper.selectSysHomeArticleListAndPDF(sysHomeArticle);
+    }
     /**
      * 新增主页详情
      * 
