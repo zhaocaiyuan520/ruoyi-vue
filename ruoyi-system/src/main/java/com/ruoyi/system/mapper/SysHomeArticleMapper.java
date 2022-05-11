@@ -66,4 +66,6 @@ public interface SysHomeArticleMapper
      * @return 结果
      */
     public int deleteSysHomeArticleByArticleIds(Long[] articleIds);
+
+    List<SysHomeArticle> selectSysArticleListByIds(Long[] articleIds);
 }

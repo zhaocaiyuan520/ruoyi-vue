@@ -65,4 +65,6 @@ public interface ISysHomeArticleService
      * @return 结果
      */
     public int deleteSysHomeArticleByArticleId(Long articleId);
+
+    List<SysHomeArticle> selectSysArticleListByIds(Long[] articleIds);
 }

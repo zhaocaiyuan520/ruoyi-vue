@@ -1,7 +1,10 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.SysFileData;
+import com.ruoyi.system.mapper.SysFileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.SysHomeArticleMapper;
@@ -19,7 +22,8 @@ public class SysHomeArticleServiceImpl implements ISysHomeArticleService
 {
     @Autowired
     private SysHomeArticleMapper sysHomeArticleMapper;
-
+    @Autowired
+    private SysFileMapper sysFileMapper;
     /**
      * 查询主页详情
      * 
@@ -64,7 +68,16 @@ public class SysHomeArticleServiceImpl implements ISysHomeArticleService
     public int insertSysHomeArticle(SysHomeArticle sysHomeArticle)
     {
         sysHomeArticle.setCreateTime(DateUtils.getNowDate());
-        return sysHomeArticleMapper.insertSysHomeArticle(sysHomeArticle);
+
+        sysHomeArticleMapper.insertSysHomeArticle(sysHomeArticle);
+
+        // 状态 临时文件 ，修改为文章 新增确定后的状态 模板文件
+        SysFileData sysFileData = new SysFileData();
+        sysFileData.setFileId(sysHomeArticle.getFileId());
+        sysFileData.setUpdateTime(new Date());
+        sysFileData.setFileFlag("1");
+        return sysFileMapper.updateSysFile(sysFileData);
+
     }
 
     /**
@@ -102,5 +115,11 @@ public class SysHomeArticleServiceImpl implements ISysHomeArticleService
     public int deleteSysHomeArticleByArticleId(Long articleId)
     {
         return sysHomeArticleMapper.deleteSysHomeArticleByArticleId(articleId);
+    }
+
+    @Override
+    public List<SysHomeArticle> selectSysArticleListByIds(Long[] articleIds) {
+
+        return sysHomeArticleMapper.selectSysArticleListByIds(articleIds);
     }
 }

@@ -1,7 +1,12 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.utils.file.FileUtils;
+import com.ruoyi.system.domain.SysFileData;
+import com.ruoyi.system.service.ISysFileService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +38,9 @@ public class SysHomeArticleController extends BaseController
 {
     @Autowired
     private ISysHomeArticleService sysHomeArticleService;
+    @Autowired
+    private ISysFileService sysFileService;
+
 
     /**
      * 查询主页详情列表
@@ -100,6 +108,18 @@ public class SysHomeArticleController extends BaseController
 	@DeleteMapping("/{articleIds}")
     public AjaxResult remove(@PathVariable Long[] articleIds)
     {
+        List<SysHomeArticle> sysLbtList = sysHomeArticleService.selectSysArticleListByIds(articleIds);
+
+        //获取轮播图表中的文件id
+        List<Long> collect = sysLbtList.stream().map(SysHomeArticle::getFileId).collect(Collectors.toList());
+        Long[] fileIds = collect.toArray(new Long[collect.size()]);
+        // 删除文件表 和删除文件
+        List<SysFileData> sysFileData = sysFileService.selectSysFileListByIds(fileIds);
+        for (SysFileData fileData : sysFileData) {
+            String filePath = fileData.getFilePath();
+            FileUtils.deleteFile(filePath);
+        }
+        sysFileService.deleteSysFileByLbtIds(fileIds);
         return toAjax(sysHomeArticleService.deleteSysHomeArticleByArticleIds(articleIds));
     }
 }
