@@ -9,8 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="articleType"    column="article_type"    />
         <result property="articleName"    column="article_name"    />
         <result property="articleNameen"    column="article_nameEn"    />
-        <result property="fileName"    column="file_name"    />
         <result property="fileId"    column="file_id"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="realName"    column="real_name"    />
         <result property="createTime"    column="create_time"    />
         <result property="createBy"    column="create_by"    />
         <result property="updateBy"    column="update_by"    />
@@ -28,7 +29,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="articleType != null  and articleType != ''"> and article_type = #{articleType}</if>
             <if test="articleName != null  and articleName != ''"> and article_name like concat('%', #{articleName}, '%')</if>
             <if test="articleNameen != null  and articleNameen != ''"> and article_nameEn = #{articleNameen}</if>
-            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
             <if test="fileId != null "> and file_id = #{fileId}</if>
         </where>
     </select>
@@ -40,7 +40,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="articleType != null  and articleType != ''"> and article_type = #{articleType}</if>
             <if test="articleName != null  and articleName != ''"> and article_name like concat('%', #{articleName}, '%')</if>
             <if test="articleNameen != null  and articleNameen != ''"> and article_nameEn = #{articleNameen}</if>
-            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
             <if test="fileId != null "> and file_id = #{fileId}</if>
         </where>
     </select>
@@ -55,7 +54,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="articleType != null">article_type,</if>
             <if test="articleName != null">article_name,</if>
             <if test="articleNameen != null">article_nameEn,</if>
-            <if test="fileName != null">file_name,</if>
             <if test="fileId != null">file_id,</if>
             <if test="createTime != null">create_time,</if>
             <if test="createBy != null">create_by,</if>
@@ -67,7 +65,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="articleType != null">#{articleType},</if>
             <if test="articleName != null">#{articleName},</if>
             <if test="articleNameen != null">#{articleNameen},</if>
-            <if test="fileName != null">#{fileName},</if>
             <if test="fileId != null">#{fileId},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="createBy != null">#{createBy},</if>
@@ -83,7 +80,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="articleType != null">article_type = #{articleType},</if>
             <if test="articleName != null">article_name = #{articleName},</if>
             <if test="articleNameen != null">article_nameEn = #{articleNameen},</if>
-            <if test="fileName != null">file_name = #{fileName},</if>
             <if test="fileId != null">file_id = #{fileId},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="createBy != null">create_by = #{createBy},</if>

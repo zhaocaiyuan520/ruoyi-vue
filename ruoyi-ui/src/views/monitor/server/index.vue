@@ -157,14 +157,14 @@
                 </tr>
               </thead>
               <tbody v-if="server.sysFiles">
-                <tr v-for="(sysFile, index) in server.sysFiles" :key="index">
-                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFile.dirName }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFile.sysTypeName }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFile.typeName }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFile.total }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFile.free }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFile.used }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell" :class="{'text-danger': sysFile.usage > 80}">{{ sysFile.usage }}%</div></td>
+                <tr v-for="(sysFileData, index) in server.sysFiles" :key="index">
+                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFileData.dirName }}</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFileData.sysTypeName }}</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFileData.typeName }}</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFileData.total }}</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFileData.free }}</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">{{ sysFileData.used }}</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell" :class="{'text-danger': sysFileData.usage > 80}">{{ sysFileData.usage }}%</div></td>
                 </tr>
               </tbody>
             </table>

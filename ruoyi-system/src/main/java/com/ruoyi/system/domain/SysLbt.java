@@ -34,13 +34,10 @@ public class SysLbt extends BaseEntity
     @Excel(name = "显示顺序")
     private Integer orderNum;
 
-    /** 0:首页轮播图，1：PDF文章 */
-    @Excel(name = "0:首页轮播图，1：PDF文章")
-    private String fileType;
+    /** 0:文件id */
+    @Excel(name = "文件id")
+    private Long fileId;
 
-    /** 0：临时文件，1：模板文件 */
-    @Excel(name = "0：临时文件，1：模板文件")
-    private String fileFlag;
 
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
@@ -90,25 +87,17 @@ public class SysLbt extends BaseEntity
     {
         return orderNum;
     }
-    public void setFileType(String fileType) 
+    public void setFileId(Long fileId)
     {
-        this.fileType = fileType;
+        this.fileId = fileId;
     }
 
-    public String getFileType() 
+    public Long getFileId()
     {
-        return fileType;
+        return fileId;
     }
-    public void setFileFlag(String fileFlag) 
-    {
-        this.fileFlag = fileFlag;
-    }
-
-    public String getFileFlag() 
-    {
-        return fileFlag;
-    }
-    public void setDelFlag(String delFlag) 
+  
+    public void setDelFlag(String delFlag)
     {
         this.delFlag = delFlag;
     }
@@ -126,8 +115,7 @@ public class SysLbt extends BaseEntity
             .append("realName", getRealName())
             .append("linkAddress", getLinkAddress())
             .append("orderNum", getOrderNum())
-            .append("fileType", getFileType())
-            .append("fileFlag", getFileFlag())
+            .append("fileId", getFileId())
             .append("createTime", getCreateTime())
             .append("createBy", getCreateBy())
             .append("updateBy", getUpdateBy())

@@ -9,8 +9,9 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.common.utils.file.FileUtils;
 import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.common.utils.uuid.UUID;
+import com.ruoyi.system.domain.SysFileData;
 import com.ruoyi.system.domain.SysLbt;
+import com.ruoyi.system.service.ISysFileService;
 import com.ruoyi.system.service.ISysLbtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 轮播图Controller
@@ -33,6 +35,8 @@ public class SysLbtController extends BaseController
 {
     @Autowired
     private ISysLbtService sysLbtService;
+    @Autowired
+    private ISysFileService sysFileService;
 
     /**
      * 查询轮播图列表
@@ -101,12 +105,17 @@ public class SysLbtController extends BaseController
     {
 
         List<SysLbt> sysLbtList = sysLbtService.selectSysLbtListByIds(lbtIds);
-        for (SysLbt sysLbt : sysLbtList) {
-            String filePath = sysLbt.getFilePath();
+        //获取轮播图表中的文件id
+        List<Long> collect = sysLbtList.stream().map(sysLbt -> sysLbt.getFileId()).collect(Collectors.toList());
+        Long[] fileIds = collect.toArray(new Long[collect.size()]);
+        // 删除文件表 和删除文件
+        List<SysFileData> sysFileData = sysFileService.selectSysFileListByIds(fileIds);
+        for (SysFileData fileData : sysFileData) {
+            String filePath = fileData.getFilePath();
             FileUtils.deleteFile(filePath);
-
         }
 
+        sysFileService.deleteSysFileByLbtIds(fileIds);
         return toAjax(sysLbtService.deleteSysLbtByLbtIds(lbtIds));
     }
 
@@ -118,32 +127,24 @@ public class SysLbtController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:lbt:upload')")
     @GetMapping("/upload")
     public AjaxResult upload(MultipartFile file) {
-        SysLbt sysLbt = new SysLbt();
+        SysFileData sysFIleData = new SysFileData();
         String path =  RuoYiConfig.getProfile();
         String realName = file.getOriginalFilename();
-        sysLbt.setRealName(realName);
-        //文件类型为 轮播图
-        sysLbt.setFileType("0");
-        //轮播图 0：临时文件，1：模板文件
-        sysLbt.setFileFlag("0");
+        sysFIleData.setRealName(realName);
+
+
         try {
             String upload = FileUploadUtils.upload(path, file);
-            sysLbt.setFilePath(upload);
+            sysFIleData.setFilePath(upload);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int id = sysLbtService.insertSysLbt(sysLbt);
+        int id = sysFileService.insertSysFile(sysFIleData);
         return success(String.valueOf(id));
 
     }
 
 
-    public static String getRandomName(String realName){
-        int index=realName.lastIndexOf(".");
-        //获取后缀名
-        String fileName=realName.substring(index);
-        String uuidFileName= UUID.randomUUID().toString().replace("-","")+fileName;
-        return uuidFileName;
-    }
+
 
 }

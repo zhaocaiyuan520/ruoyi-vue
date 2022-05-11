@@ -34,6 +34,10 @@ public class SysHomeArticle extends BaseEntity
     @Excel(name = "文件名称")
     private String fileName;
 
+
+    /** 文件地址 */
+    @Excel(name = "文件名称")
+    private String filePath;
     /** 文件id */
     @Excel(name = "文件id")
     private Long fileId;
@@ -103,6 +107,14 @@ public class SysHomeArticle extends BaseEntity
     public String getDelFlag() 
     {
         return delFlag;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysFileMapper">
+    
+    <resultMap type="SysFileData" id="SysFileResult">
+        <result property="fileId"    column="file_id"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="realName"    column="real_name"    />
+        <result property="fileType"    column="file_type"    />
+        <result property="fileFlag"    column="file_flag"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysFileVo">
+        select file_id, file_path, real_name, file_type, file_flag, create_time, create_by, update_by, update_time, del_flag from sys_file
+    </sql>
+
+    <select id="selectSysFileList" parameterType="SysFile" resultMap="SysFileResult">
+        <include refid="selectSysFileVo"/>
+        <where>  
+            <if test="filePath != null  and filePath != ''"> and file_path = #{filePath}</if>
+            <if test="realName != null  and realName != ''"> and real_name like concat('%', #{realName}, '%')</if>
+            <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
+            <if test="fileFlag != null  and fileFlag != ''"> and file_flag = #{fileFlag}</if>
+        </where>
+        order by order_num
+    </select>
+    
+    <select id="selectSysFileByfileId" parameterType="Long" resultMap="SysFileResult">
+        <include refid="selectSysFileVo"/>
+        where file_id = #{fileId}
+    </select>
+        
+    <insert id="insertSysFile" parameterType="SysFile"  keyColumn="file_id" useGeneratedKeys="true" keyProperty="fileId">
+        insert into sys_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="filePath != null">file_path,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="fileType != null">file_type,</if>
+            <if test="fileFlag != null">file_flag,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="filePath != null">#{filePath},</if>
+            <if test="realName != null">#{realName},</if>
+            <if test="fileType != null">#{fileType},</if>
+            <if test="fileFlag != null">#{fileFlag},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysFile" parameterType="SysFile">
+        update sys_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="filePath != null">file_path = #{filePath},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="fileType != null">file_type = #{fileType},</if>
+            <if test="fileFlag != null">file_flag = #{fileFlag},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where file_id = #{fileId}
+    </update>
+
+    <delete id="deleteSysFileByfileId" parameterType="Long">
+        delete from sys_file where file_id = #{fileId}
+    </delete>
+
+    <delete id="deleteSysFileByfileIds" parameterType="String">
+        delete from sys_file where file_id in 
+        <foreach item="fileId" collection="array" open="(" separator="," close=")">
+            #{fileId}
+        </foreach>
+    </delete>
+
+
+    <select id="selectSysFileListByIds" parameterType="String" resultMap="SysFileResult">
+        select * from sys_file where file_id in
+        <foreach item="fileId" collection="array" open="(" separator="," close=")">
+            #{fileId}
+        </foreach>
+    </select>
+</mapper>

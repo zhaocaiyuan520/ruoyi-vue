@@ -1036,28 +1036,46 @@ create table gen_table_column
 ) engine=innodb auto_increment=1 comment = '代码生成业务表字段';
 
 -- ---------------------------------------- 业务逻辑表-------------------------------------------------------------------
+--  文件表
+DROP TABLE
+    IF EXISTS sys_file;
+
+CREATE TABLE `sys_file`
+(
+    `file_id`     bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文件id',
+    `file_path`   varchar(300) DEFAULT '' COMMENT '文件路径',
+    `real_name`   varchar(300) DEFAULT '' COMMENT '真实名称',
+    `file_type`   char(1)      DEFAULT '0' COMMENT '0:首页轮播图，1：PDF文章',
+    `file_flag`   char(1)      DEFAULT '0' COMMENT '0：临时文件，1：模板文件',
+    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_by`   varchar(64)  DEFAULT '' COMMENT '创建者',
+    `update_by`   varchar(64)  DEFAULT '' COMMENT '更新者',
+    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+    `del_flag`    char(1)      DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+    PRIMARY KEY (`file_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8 COMMENT='文件表';
+
 
 -- 20、轮播图
 -- ----------------------------
 DROP TABLE
     IF EXISTS sys_lbt;
 
-CREATE TABLE sys_lbt
+CREATE TABLE `sys_lbt`
 (
-    lbt_id      BIGINT (20) NOT NULL auto_increment COMMENT '首页轮播图id',
-    file_path   VARCHAR(300) DEFAULT '' COMMENT '文件路径',
-    real_name   VARCHAR(300) DEFAULT '' COMMENT '真实名称',
-    link_address   VARCHAR(300) DEFAULT NULL COMMENT '跳转地址',
-    order_num   INT (4) DEFAULT 0 COMMENT '显示顺序',
-    file_type   CHAR(1)      DEFAULT '0' COMMENT '0:首页轮播图，1：PDF文章',
-    file_flag   CHAR(1)      DEFAULT '0' COMMENT '0：临时文件，1：模板文件',
-    create_time datetime COMMENT '创建时间',
-    create_by   VARCHAR(64)  DEFAULT '' COMMENT '创建者',
-    update_by   VARCHAR(64)  DEFAULT '' COMMENT '更新者',
-    update_time datetime COMMENT '更新时间',
-    del_flag            char(1)      default '0' comment '删除标志（0代表存在 2代表删除）',
-    PRIMARY KEY (lbt_id)
-) ENGINE = INNODB auto_increment = 200 COMMENT = '轮播图表';
+    `lbt_id`       bigint(20) NOT NULL AUTO_INCREMENT COMMENT '轮播图id',
+    `link_address` varchar(300) DEFAULT NULL COMMENT '外链地址',
+    `order_num`    int(4) DEFAULT '0' COMMENT '显示顺序',
+    `file_id`      bigint(20) DEFAULT '0' COMMENT '0:首页轮播图，1：PDF文章',
+    `create_time`  datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_by`    varchar(64)  DEFAULT '' COMMENT '创建者',
+    `update_by`    varchar(64)  DEFAULT '' COMMENT '更新者',
+    `update_time`  datetime     DEFAULT NULL COMMENT '更新时间',
+    `del_flag`     char(1)      DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+    PRIMARY KEY (`lbt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8 COMMENT='轮播图表';
+
+
 
 -- 21、主页详情
 -- ----------------------------
@@ -1066,16 +1084,16 @@ DROP TABLE
 
 CREATE TABLE sys_home_Info
 (
-    home_id     BIGINT (20) NOT NULL auto_increment COMMENT '首页详情id',
-    home_about       VARCHAR(5000) DEFAULT '' COMMENT 'about中文',
-    home_aboutEn     VARCHAR(5000) DEFAULT '' COMMENT 'about英文',
-    home_research    VARCHAR(5000) DEFAULT NULL COMMENT 'research中文',
-    home_researchEn  VARCHAR(5000) DEFAULT NULL COMMENT 'research英文',
-    create_time datetime COMMENT '创建时间',
-    create_by   VARCHAR(64)   DEFAULT '' COMMENT '创建者',
-    update_by   VARCHAR(64)   DEFAULT '' COMMENT '更新者',
-    update_time datetime COMMENT '更新时间',
-    del_flag            char(1)      default '0' comment '删除标志（0代表存在 2代表删除）',
+    home_id         BIGINT (20) NOT NULL auto_increment COMMENT '首页详情id',
+    home_about      VARCHAR(5000) DEFAULT '' COMMENT 'about中文',
+    home_aboutEn    VARCHAR(5000) DEFAULT '' COMMENT 'about英文',
+    home_research   VARCHAR(5000) DEFAULT NULL COMMENT 'research中文',
+    home_researchEn VARCHAR(5000) DEFAULT NULL COMMENT 'research英文',
+    create_time     datetime COMMENT '创建时间',
+    create_by       VARCHAR(64)   DEFAULT '' COMMENT '创建者',
+    update_by       VARCHAR(64)   DEFAULT '' COMMENT '更新者',
+    update_time     datetime COMMENT '更新时间',
+    del_flag        char(1)       default '0' comment '删除标志（0代表存在 2代表删除）',
     PRIMARY KEY (home_id)
 ) ENGINE = INNODB auto_increment = 200 COMMENT = '主页详情表';
 
@@ -1089,13 +1107,12 @@ CREATE TABLE sys_home_article
     article_type   CHAR(1)       DEFAULT '0' COMMENT '0:产品，1：流程，2：知识，3：项目管理',
     article_name   VARCHAR(5000) DEFAULT '' COMMENT '文章名称',
     article_nameEn VARCHAR(5000) DEFAULT NULL COMMENT '文章名称英文',
-    file_name      VARCHAR(300)  DEFAULT NULL COMMENT '文件名称',
     file_id        BIGINT (20) COMMENT '文件id',
     create_time    datetime COMMENT '创建时间',
     create_by      VARCHAR(64)   DEFAULT '' COMMENT '创建者',
     update_by      VARCHAR(64)   DEFAULT '' COMMENT '更新者',
     update_time    datetime COMMENT '更新时间',
-    del_flag            char(1)      default '0' comment '删除标志（0代表存在 2代表删除）',
+    del_flag       char(1)       default '0' comment '删除标志（0代表存在 2代表删除）',
     PRIMARY KEY (article_id)
 ) ENGINE = INNODB auto_increment = 200 COMMENT = '主页文章表';
 

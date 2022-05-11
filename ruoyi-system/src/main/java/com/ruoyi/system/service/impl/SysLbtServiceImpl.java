@@ -2,6 +2,8 @@ package com.ruoyi.system.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.SysFileData;
+import com.ruoyi.system.mapper.SysFileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.SysLbtMapper;
@@ -19,7 +21,8 @@ public class SysLbtServiceImpl implements ISysLbtService
 {
     @Autowired
     private SysLbtMapper sysLbtMapper;
-
+    @Autowired
+    private SysFileMapper sysFileMapper;
     /**
      * 查询轮播图
      * 
@@ -55,8 +58,11 @@ public class SysLbtServiceImpl implements ISysLbtService
     {
         sysLbt.setCreateTime(DateUtils.getNowDate());
         sysLbtMapper.insertSysLbt(sysLbt);
-        Long lbtId = sysLbt.getLbtId();
-        return lbtId.intValue();
+        //修改状态
+        SysFileData sysFileData = new SysFileData();
+        sysFileData.setFileId(sysLbt.getFileId());
+        sysFileData.setFileFlag("1");
+        return sysFileMapper.updateSysFile(sysFileData);
     }
 
     /**
