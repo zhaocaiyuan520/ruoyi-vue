@@ -1,5 +1,6 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.system.domain.SysFileData;
@@ -58,9 +59,10 @@ public class SysLbtServiceImpl implements ISysLbtService
     {
         sysLbt.setCreateTime(DateUtils.getNowDate());
         sysLbtMapper.insertSysLbt(sysLbt);
-        //修改状态
+        // 状态 临时文件 ，修改为轮播图新增确定后的状态 模板文件
         SysFileData sysFileData = new SysFileData();
         sysFileData.setFileId(sysLbt.getFileId());
+        sysFileData.setUpdateTime(new Date());
         sysFileData.setFileFlag("1");
         return sysFileMapper.updateSysFile(sysFileData);
     }

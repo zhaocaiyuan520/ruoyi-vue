@@ -49,7 +49,8 @@ public class SysFileController extends BaseController
         String path =  RuoYiConfig.getProfile();
         String realName = file.getOriginalFilename();
         sysFIleData.setRealName(realName);
-        sysFIleData.setFileFlag(fileType);
+        //0:首页轮播图，1：PDF文章
+        sysFIleData.setFileType(fileType);
         try {
             String upload = FileUploadUtils.upload(path, file);
             sysFIleData.setFilePath(upload);
