@@ -20,11 +20,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectSysHomeArticleVo">
-        select article_id, article_type, article_name, article_nameEn, file_name, file_id, create_time, create_by, update_by, update_time, del_flag from sys_home_article
+        select article_id, article_type, article_name, article_nameEn, file_id, create_time, create_by, update_by, update_time, del_flag from sys_home_article
     </sql>
 
     <select id="selectSysHomeArticleList" parameterType="SysHomeArticle" resultMap="SysHomeArticleResult">
+<!--
         <include refid="selectSysHomeArticleVo"/>
+-->
+        select a.article_id, a.article_type, a.article_name, a.article_nameEn, a.create_time, a.create_by, a.update_by, a.update_time, a.del_flag
+        , b.file_id, b.file_path ,b.real_name
+        from sys_home_article a  left join sys_file  b on a.file_id= b.file_id
+
         <where>  
             <if test="articleType != null  and articleType != ''"> and article_type = #{articleType}</if>
             <if test="articleName != null  and articleName != ''"> and article_name like concat('%', #{articleName}, '%')</if>
@@ -34,8 +40,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectSysHomeArticleListAndPDF" parameterType="SysHomeArticle" resultMap="SysHomeArticleResult">
-        select a.article_id, a.article_type, a.article_name, a.article_nameEn, b.file_name, b.file_path as file_id, a.create_time, a.create_by, a.update_by, a.update_time, a.del_flag
-        from sys_home_article a  left join sys_lbt  b on a.file_id= b.lbt_id
+        select a.article_id, a.article_type, a.article_name, a.article_nameEn, a.create_time, a.create_by, a.update_by, a.update_time, a.del_flag
+               , b.file_id, b.file_path ,b.real_name
+        from sys_home_article a  left join sys_file  b on a.file_id= b.file_id
         <where>
             <if test="articleType != null  and articleType != ''"> and article_type = #{articleType}</if>
             <if test="articleName != null  and articleName != ''"> and article_name like concat('%', #{articleName}, '%')</if>
@@ -44,7 +51,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     <select id="selectSysHomeArticleByArticleId" parameterType="Long" resultMap="SysHomeArticleResult">
+<!--
         <include refid="selectSysHomeArticleVo"/>
+-->
+        select a.article_id, a.article_type, a.article_name, a.article_nameEn, a.create_time, a.create_by, a.update_by, a.update_time, a.del_flag
+        , b.file_id, b.file_path ,b.real_name
+        from sys_home_article a  left join sys_file  b on a.file_id= b.file_id
+
         where article_id = #{articleId}
     </select>
         

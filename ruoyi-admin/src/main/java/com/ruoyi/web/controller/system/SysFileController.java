@@ -47,7 +47,7 @@ public class SysFileController extends BaseController {
      * @return
      */
     @GetMapping("/upload")
-    public AjaxResult upload(MultipartFile file, String fileType) {
+    public AjaxResult upload(MultipartFile file, String fileType) throws Exception{
         SysFileData sysFIleData = new SysFileData();
         String path = RuoYiConfig.getProfile();
         String realName = file.getOriginalFilename();
@@ -61,12 +61,8 @@ public class SysFileController extends BaseController {
             path = path + File.separatorChar + Constants.PDF_PATH;
         }
         logger.info("上传文件路径为~~~~~~~~~~~~~~~~~~~~,{}", path);
-        try {
-            String upload = FileUploadUtils.upload(path, file);
-            sysFIleData.setFilePath(upload);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String upload = FileUploadUtils.upload(path, file);
+        sysFIleData.setFilePath(upload);
         int id = sysFileService.insertSysFile(sysFIleData);
         return success(String.valueOf(id));
 

@@ -119,30 +119,7 @@ public class SysLbtController extends BaseController
         return toAjax(sysLbtService.deleteSysLbtByLbtIds(lbtIds));
     }
 
-    /**
-     * 上传
-     * @param file
-     * @return
-     */
-    @PreAuthorize("@ss.hasPermi('system:lbt:upload')")
-    @GetMapping("/upload")
-    public AjaxResult upload(MultipartFile file) {
-        SysFileData sysFIleData = new SysFileData();
-        String path =  RuoYiConfig.getProfile();
-        String realName = file.getOriginalFilename();
-        sysFIleData.setRealName(realName);
 
-
-        try {
-            String upload = FileUploadUtils.upload(path, file);
-            sysFIleData.setFilePath(upload);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        int id = sysFileService.insertSysFile(sysFIleData);
-        return success(String.valueOf(id));
-
-    }
 
 
 

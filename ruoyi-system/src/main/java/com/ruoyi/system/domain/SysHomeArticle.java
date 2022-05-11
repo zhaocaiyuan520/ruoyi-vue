@@ -32,7 +32,7 @@ public class SysHomeArticle extends BaseEntity
 
     /** 文件名称 */
     @Excel(name = "文件名称")
-    private String fileName;
+    private String realName;
 
 
     /** 文件地址 */
@@ -81,14 +81,14 @@ public class SysHomeArticle extends BaseEntity
     {
         return articleNameen;
     }
-    public void setFileName(String fileName) 
+    public void setRealName(String realName)
     {
-        this.fileName = fileName;
+        this.realName = realName;
     }
 
-    public String getFileName() 
+    public String getRealName()
     {
-        return fileName;
+        return realName;
     }
     public void setFileId(Long fileId) 
     {
@@ -124,7 +124,7 @@ public class SysHomeArticle extends BaseEntity
             .append("articleType", getArticleType())
             .append("articleName", getArticleName())
             .append("articleNameen", getArticleNameen())
-            .append("fileName", getFileName())
+            .append("realName", getRealName())
             .append("fileId", getFileId())
             .append("createTime", getCreateTime())
             .append("createBy", getCreateBy())
