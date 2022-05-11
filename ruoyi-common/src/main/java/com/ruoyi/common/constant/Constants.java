@@ -164,4 +164,23 @@ public class Constants
      */
     public static final String[] JOB_ERROR_STR = { "java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
             "org.springframework", "org.apache", "com.ruoyi.common.utils.file" };
+
+
+    /**
+     * 图片文件为 0
+     */
+    public static final String IS_IMG_FILE = "0";
+    /**
+     * PDF文件为 1
+     */
+    public static final String IS_PDF_FILE = "1";
+
+    /**
+     * 图片文件 目录
+     */
+    public static final String IMG_PATH = "IMG";
+    /**
+     * PDF文件 目录
+     */
+    public static final String PDF_PATH = "PDF";
 }

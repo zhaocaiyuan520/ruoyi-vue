@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.system;
 
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.config.RuoYiConfig;
+import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
@@ -20,19 +21,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 /**
  * 轮播图Controller
  * 点击    新增 上传图片 返回该条记录的id， 输入外链、排序 点击确定 修改操作
+ *
  * @author ruoyi
  * @date 2022-05-08
  */
 @RestController
 @RequestMapping("/system/file")
-public class SysFileController extends BaseController
-{
+public class SysFileController extends BaseController {
 
     @Autowired
     private ISysFileService sysFileService;
@@ -40,17 +42,25 @@ public class SysFileController extends BaseController
 
     /**
      * 上传
+     *
      * @param file
      * @return
      */
     @GetMapping("/upload")
-        public AjaxResult upload(MultipartFile file,String fileType) {
+    public AjaxResult upload(MultipartFile file, String fileType) {
         SysFileData sysFIleData = new SysFileData();
-        String path =  RuoYiConfig.getProfile();
+        String path = RuoYiConfig.getProfile();
         String realName = file.getOriginalFilename();
         sysFIleData.setRealName(realName);
         //0:首页轮播图，1：PDF文章
         sysFIleData.setFileType(fileType);
+        //根据类型区分不同文件夹
+        if (fileType.equals(Constants.IS_IMG_FILE)) {
+            path = path + File.separatorChar + Constants.IMG_PATH;
+        } else if (fileType.equals(Constants.IS_PDF_FILE)) {
+            path = path + File.separatorChar + Constants.PDF_PATH;
+        }
+        logger.info("上传文件路径为~~~~~~~~~~~~~~~~~~~~,{}", path);
         try {
             String upload = FileUploadUtils.upload(path, file);
             sysFIleData.setFilePath(upload);
@@ -61,7 +71,6 @@ public class SysFileController extends BaseController
         return success(String.valueOf(id));
 
     }
-
 
 
 }
