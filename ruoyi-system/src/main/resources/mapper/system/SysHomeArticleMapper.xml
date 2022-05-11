@@ -116,7 +116,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectSysArticleListByIds" parameterType="String" resultMap="SysHomeArticleResult">
         select * from sys_home_article where article_id in
-        <foreach item="lbtId" collection="array" open="(" separator="," close=")">
+        <foreach item="articleId" collection="array" open="(" separator="," close=")">
             #{articleId}
         </foreach>
     </select>
