@@ -37,7 +37,7 @@ public class SysHomeInfoController extends BaseController
     /**
      * 查询主页详情列表
      */
-    @PreAuthorize("@ss.hasPermi('system:info:list')")
+//    @PreAuthorize("@ss.hasPermi('system:info:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysHomeInfo sysHomeInfo)
     {

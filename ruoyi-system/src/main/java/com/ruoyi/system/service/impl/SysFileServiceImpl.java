@@ -36,4 +36,9 @@ public class SysFileServiceImpl implements ISysFileService {
     public int deleteSysFileByLbtIds(Long[] fileIds) {
         return sysFileMapper.deleteSysFileByfileIds(fileIds);
     }
+
+    @Override
+    public SysFileData selectSysFileByfileId(Long fileId) {
+        return sysFileMapper.selectSysFileByfileId(fileId);
+    }
 }

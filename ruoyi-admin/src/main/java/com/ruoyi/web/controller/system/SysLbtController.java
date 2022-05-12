@@ -41,7 +41,7 @@ public class SysLbtController extends BaseController
     /**
      * 查询轮播图列表
      */
-    @PreAuthorize("@ss.hasPermi('system:lbt:list')")
+//    @PreAuthorize("@ss.hasPermi('system:lbt:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysLbt sysLbt)
     {

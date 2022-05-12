@@ -45,13 +45,13 @@ public class SysHomeArticleController extends BaseController
     /**
      * 查询主页详情列表
      */
-    @PreAuthorize("@ss.hasPermi('system:article:list')")
+//    @PreAuthorize("@ss.hasPermi('system:article:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysHomeArticle sysHomeArticle)
     {
         startPage();
-//        List<SysHomeArticle> list = sysHomeArticleService.selectSysHomeArticleList(sysHomeArticle);
-        List<SysHomeArticle> list = sysHomeArticleService.selectSysHomeArticleListAndPDF(sysHomeArticle);
+        List<SysHomeArticle> list = sysHomeArticleService.selectSysHomeArticleList(sysHomeArticle);
+//        List<SysHomeArticle> list = sysHomeArticleService.selectSysHomeArticleListAndPDF(sysHomeArticle);
         return getDataTable(list);
     }
 
