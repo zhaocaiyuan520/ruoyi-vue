@@ -7,6 +7,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.common.utils.file.FileUtils;
 import com.ruoyi.common.utils.poi.ExcelUtil;
@@ -16,10 +17,12 @@ import com.ruoyi.system.domain.SysLbt;
 import com.ruoyi.system.service.ISysFileService;
 import com.ruoyi.system.service.ISysLbtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +50,7 @@ public class SysFileController extends BaseController {
      * @return
      */
     @GetMapping("/upload")
-    public AjaxResult upload(MultipartFile file, String fileType) throws Exception{
+    public AjaxResult upload(MultipartFile file, String fileType) throws Exception {
         SysFileData sysFIleData = new SysFileData();
         String path = RuoYiConfig.getProfile();
         String realName = file.getOriginalFilename();
@@ -69,4 +72,29 @@ public class SysFileController extends BaseController {
     }
 
 
+    /**
+     * 通用下载请求
+     *
+     * @param fileId 文件id
+     */
+    @GetMapping("/download")
+    public AjaxResult fileDownload(Long fileId, HttpServletResponse response) {
+        try {
+            SysFileData sysFileData = sysFileService.selectSysFileByfileId(fileId);
+            if (sysFileData != null) {
+                String filePath = sysFileData.getFilePath();
+                String realName = sysFileData.getRealName();
+                response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+                FileUtils.setAttachmentResponseHeader(response, realName);
+                FileUtils.writeBytes(filePath, response.getOutputStream());
+                return AjaxResult.success(1);
+            } else {
+                return error("未找到相关文件");
+            }
+
+        } catch (Exception e) {
+            logger.error("下载文件失败", e);
+            return error("下载文件失败");
+        }
+    }
 }
