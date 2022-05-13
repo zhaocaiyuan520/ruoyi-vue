@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysPublicationMapper">
+    
+    <resultMap type="SysPublication" id="SysPublicationResult">
+        <result property="id"    column="id"    />
+        <result property="year"    column="year"    />
+        <result property="literatureTitle"    column="literature_title"    />
+        <result property="literatureTitleen"    column="literature_titleEn"    />
+        <result property="pdfId"    column="pdf_id"    />
+        <result property="imgId"    column="img_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysPublicationVo">
+        select id, year, literature_title, literature_titleEn, pdf_id, img_id, create_time, create_by, update_by, update_time, del_flag from sys_publication
+    </sql>
+
+    <select id="selectSysPublicationList" parameterType="SysPublication" resultMap="SysPublicationResult">
+        <include refid="selectSysPublicationVo"/>
+        <where>  
+            <if test="year != null  and year != ''"> and year = #{year}</if>
+            <if test="literatureTitle != null  and literatureTitle != ''"> and literature_title = #{literatureTitle}</if>
+            <if test="literatureTitleen != null  and literatureTitleen != ''"> and literature_titleEn = #{literatureTitleen}</if>
+            <if test="pdfId != null "> and pdf_id = #{pdfId}</if>
+            <if test="imgId != null "> and img_id = #{imgId}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysPublicationById" parameterType="Long" resultMap="SysPublicationResult">
+        <include refid="selectSysPublicationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysPublication" parameterType="SysPublication" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_publication
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="year != null">year,</if>
+            <if test="literatureTitle != null">literature_title,</if>
+            <if test="literatureTitleen != null">literature_titleEn,</if>
+            <if test="pdfId != null">pdf_id,</if>
+            <if test="imgId != null">img_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="year != null">#{year},</if>
+            <if test="literatureTitle != null">#{literatureTitle},</if>
+            <if test="literatureTitleen != null">#{literatureTitleen},</if>
+            <if test="pdfId != null">#{pdfId},</if>
+            <if test="imgId != null">#{imgId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysPublication" parameterType="SysPublication">
+        update sys_publication
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="year != null">year = #{year},</if>
+            <if test="literatureTitle != null">literature_title = #{literatureTitle},</if>
+            <if test="literatureTitleen != null">literature_titleEn = #{literatureTitleen},</if>
+            <if test="pdfId != null">pdf_id = #{pdfId},</if>
+            <if test="imgId != null">img_id = #{imgId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysPublicationById" parameterType="Long">
+        delete from sys_publication where id = #{id}
+    </delete>
+
+    <delete id="deleteSysPublicationByIds" parameterType="String">
+        delete from sys_publication where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

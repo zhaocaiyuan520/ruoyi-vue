@@ -1066,7 +1066,7 @@ CREATE TABLE `sys_lbt`
     `lbt_id`       bigint(20) NOT NULL AUTO_INCREMENT COMMENT '轮播图id',
     `link_address` varchar(300) DEFAULT NULL COMMENT '外链地址',
     `order_num`    int(4) DEFAULT '0' COMMENT '显示顺序',
-    `file_id`      bigint(20) DEFAULT '0' COMMENT '0:首页轮播图，1：PDF文章',
+    `file_id`      bigint(20)   COMMENT '文件id',
     `create_time`  datetime     DEFAULT NULL COMMENT '创建时间',
     `create_by`    varchar(64)  DEFAULT '' COMMENT '创建者',
     `update_by`    varchar(64)  DEFAULT '' COMMENT '更新者',
@@ -1116,5 +1116,24 @@ CREATE TABLE sys_home_article
     PRIMARY KEY (article_id)
 ) ENGINE = INNODB auto_increment = 200 COMMENT = '主页文章表';
 
+--------------------------模块二-----------------------------
+--  出版物模块详情表
+DROP TABLE
+    IF EXISTS sys_publication;
 
+CREATE TABLE `sys_publication`
+(
+    `id`     bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文献id',
+    `year`   varchar(4) DEFAULT '' COMMENT '文献年份',
+    `literature_title`   varchar(5000) DEFAULT '' COMMENT '文献标题中文',
+    `literature_titleEn`   varchar(5000) DEFAULT '' COMMENT '文献标题英文',
+    `pdf_id`    bigint(20)     DEFAULT NULL COMMENT '文献pdfId',
+    `img_id`    bigint(20)     DEFAULT NULL COMMENT '文献图片Id',
+    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_by`   varchar(64)  DEFAULT '' COMMENT '创建者',
+    `update_by`   varchar(64)  DEFAULT '' COMMENT '更新者',
+    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+    `del_flag`    char(1)      DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8 COMMENT='出版物模块详情表';
 
