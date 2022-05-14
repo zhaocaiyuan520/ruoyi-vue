@@ -100,11 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 //不需要token 官网的首页 可以过滤掉接口
                 .antMatchers("/login",
                         "/register",
-                        "/captchaImage",
-                        "/system/file/download",
-                        "/system/lbt/list",
-                        "/system/info/list",
-                        "/system/article/list"
+                        "/captchaImage"
                 ).anonymous()
                 .antMatchers(
                         HttpMethod.GET,
@@ -115,6 +111,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                         "/**/*.js",
                         "/profile/**"
                 ).permitAll()
+                .antMatchers("/system/lbt/list").permitAll()
+                .antMatchers("/system/info/list").permitAll()
+                .antMatchers("/system/article/list").permitAll()
+                .antMatchers("/system/file/download").permitAll()
                 .antMatchers("/swagger-ui.html").anonymous()
                 .antMatchers("/swagger-resources/**").anonymous()
                 .antMatchers("/webjars/**").anonymous()

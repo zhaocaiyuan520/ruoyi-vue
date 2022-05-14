@@ -1116,7 +1116,7 @@ CREATE TABLE sys_home_article
     PRIMARY KEY (article_id)
 ) ENGINE = INNODB auto_increment = 200 COMMENT = '主页文章表';
 
---------------------------模块二-----------------------------
+-- ------------------------模块二-----------------------------
 --  出版物模块详情表
 DROP TABLE
     IF EXISTS sys_publication;
