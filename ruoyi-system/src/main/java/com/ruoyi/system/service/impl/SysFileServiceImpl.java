@@ -41,4 +41,9 @@ public class SysFileServiceImpl implements ISysFileService {
     public SysFileData selectSysFileByfileId(Long fileId) {
         return sysFileMapper.selectSysFileByfileId(fileId);
     }
+
+    @Override
+    public List<SysFileData> selectSysFileList(SysFileData fileData) {
+        return sysFileMapper.selectSysFileList(fileData);
+    }
 }

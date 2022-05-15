@@ -38,6 +38,27 @@ public class SysPublication extends BaseEntity
     @Excel(name = "文献图片Id")
     private Long imgId;
 
+    /** 文献pdfName */
+    @Excel(name = "文献pdfName")
+    private String pdfName;
+
+    /** 文献图片name */
+    @Excel(name = "文献图片Id")
+    private String imgName;
+
+    /** 文献pdf地址 */
+    @Excel(name = "文献pdf地址")
+    private String pdfAddress;
+
+    /** 文献图片地址 */
+    @Excel(name = "文献图片地址")
+    private String imgAddress;
+
+
+
+
+
+
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
 
@@ -120,5 +141,37 @@ public class SysPublication extends BaseEntity
             .append("updateTime", getUpdateTime())
             .append("delFlag", getDelFlag())
             .toString();
+    }
+
+    public String getPdfName() {
+        return pdfName;
+    }
+
+    public void setPdfName(String pdfName) {
+        this.pdfName = pdfName;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
+    }
+
+    public String getPdfAddress() {
+        return pdfAddress;
+    }
+
+    public void setPdfAddress(String pdfAddress) {
+        this.pdfAddress = pdfAddress;
+    }
+
+    public String getImgAddress() {
+        return imgAddress;
+    }
+
+    public void setImgAddress(String imgAddress) {
+        this.imgAddress = imgAddress;
     }
 }

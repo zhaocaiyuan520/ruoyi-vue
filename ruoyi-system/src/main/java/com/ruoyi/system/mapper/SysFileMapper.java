@@ -31,4 +31,6 @@ public interface SysFileMapper {
     int deleteSysFileByfileIds(Long[] fileIds);
 
     SysFileData selectSysFileByfileId(Long fileId);
+
+    List<SysFileData> selectSysFileList(SysFileData fileData);
 }

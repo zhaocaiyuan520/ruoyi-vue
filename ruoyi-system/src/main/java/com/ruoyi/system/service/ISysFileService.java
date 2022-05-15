@@ -25,4 +25,6 @@ public interface ISysFileService {
     public int deleteSysFileByLbtIds(Long[] lbtIds);
 
     SysFileData selectSysFileByfileId(Long fileId);
+
+    List<SysFileData> selectSysFileList(SysFileData fileData);
 }

@@ -14,6 +14,7 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.utils.uuid.UUID;
 import com.ruoyi.system.domain.SysFileData;
 import com.ruoyi.system.domain.SysLbt;
+import com.ruoyi.system.domain.SysPublication;
 import com.ruoyi.system.service.ISysFileService;
 import com.ruoyi.system.service.ISysLbtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,13 @@ public class SysFileController extends BaseController {
 
     @Autowired
     private ISysFileService sysFileService;
-
+    @GetMapping("/list")
+    public TableDataInfo list(SysFileData fileData)
+    {
+        startPage();
+        List<SysFileData> list = sysFileService.selectSysFileList(fileData);
+        return getDataTable(list);
+    }
 
     /**
      * 上传
