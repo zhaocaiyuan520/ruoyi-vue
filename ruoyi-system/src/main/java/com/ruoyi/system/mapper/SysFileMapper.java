@@ -32,5 +32,5 @@ public interface SysFileMapper {
 
     SysFileData selectSysFileByfileId(Long fileId);
 
-    List<SysFileData> selectSysFileList(SysFileData fileData);
+    List<SysFileData> querySysFileList(SysFileData fileData);
 }

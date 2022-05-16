@@ -1,12 +1,19 @@
 package com.ruoyi.web.controller.system;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ruoyi.common.utils.file.FileUtils;
+import com.ruoyi.system.domain.SysFileData;
+import com.ruoyi.system.domain.SysHomeArticle;
+import com.ruoyi.system.service.ISysFileService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,6 +42,8 @@ import com.ruoyi.common.core.page.TableDataInfo;
 public class SysPublicationController extends BaseController {
     @Autowired
     private ISysPublicationService sysPublicationService;
+    @Autowired
+    private ISysFileService sysFileService;
 
     /**
      * 查询出版物模块详情列表
@@ -47,6 +56,7 @@ public class SysPublicationController extends BaseController {
         Map<String, List<SysPublication>> yearMap = list.stream().collect(Collectors.groupingBy(SysPublication::getYear));
         return getDataTable(list);
     }
+
     /**
      * 查询出版物模块详情列表
      */
@@ -55,7 +65,8 @@ public class SysPublicationController extends BaseController {
     public Map<String, List<SysPublication>> map(SysPublication sysPublication) {
         startPage();
         List<SysPublication> list = sysPublicationService.selectSysPublicationList(sysPublication);
-        Map<String, List<SysPublication>> yearMap = list.stream().collect(Collectors.groupingBy(SysPublication::getYear));
+        Map<String, List<SysPublication>> yearMap = list.stream().collect(Collectors.groupingBy(SysPublication::getYear, LinkedHashMap::new, Collectors.toList()));
+
         return yearMap;
     }
 
@@ -107,6 +118,31 @@ public class SysPublicationController extends BaseController {
     @Log(title = "出版物模块详情", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
+
+        List<Long> collect = new ArrayList<>();
+        for (Long id : ids) {
+            SysPublication sysPublication = sysPublicationService.selectSysPublicationById(id);
+            if(sysPublication.getImgId()!=null){
+                collect.add(sysPublication.getImgId());
+            }
+            if(sysPublication.getPdfId()!=null){
+                collect.add(sysPublication.getPdfId());
+            }
+        }
+        //id 不为空则去删除
+        if (!CollectionUtils.isEmpty(collect)) {
+            Long[] fileIds = collect.toArray(new Long[collect.size()]);
+            // 删除文件表 和删除文件
+            List<SysFileData> sysFileData = sysFileService.selectSysFileListByIds(fileIds);
+            for (SysFileData fileData : sysFileData) {
+                String filePath = fileData.getFilePath();
+                FileUtils.deleteFile(filePath);
+            }
+            sysFileService.deleteSysFileByLbtIds(fileIds);
+
+        }
+
+
         return toAjax(sysPublicationService.deleteSysPublicationByIds(ids));
     }
 }

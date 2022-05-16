@@ -37,7 +37,21 @@ public class SysPublicationServiceImpl implements ISysPublicationService {
      */
     @Override
     public SysPublication selectSysPublicationById(Long id) {
-        return sysPublicationMapper.selectSysPublicationById(id);
+        SysPublication sysPublication = sysPublicationMapper.selectSysPublicationById(id);
+        if (sysPublication != null) {
+
+            List<SysFileData> sysFileData = sysFileMapper.querySysFileList(new SysFileData());
+            Map<Long, SysFileData> map = sysFileData.stream().collect(Collectors.toMap(SysFileData::getFileId, Function.identity()));
+            SysFileData imgFile = map.get(sysPublication.getImgId());
+            SysFileData pdfFile = map.get(sysPublication.getPdfId());
+
+            sysPublication.setImgName(imgFile.getRealName());
+            sysPublication.setImgAddress(imgFile.getFilePath());
+
+            sysPublication.setPdfName(pdfFile.getRealName());
+            sysPublication.setPdfAddress(pdfFile.getFilePath());
+        }
+        return sysPublication;
     }
 
     /**
@@ -51,7 +65,7 @@ public class SysPublicationServiceImpl implements ISysPublicationService {
         List<SysPublication> sysPublications = sysPublicationMapper.selectSysPublicationList(sysPublication);
 
         if (!CollectionUtils.isEmpty(sysPublications)) {
-            List<SysFileData> sysFileData = sysFileMapper.selectSysFileList(new SysFileData());
+            List<SysFileData> sysFileData = sysFileMapper.querySysFileList(new SysFileData());
             Map<Long, SysFileData> map = sysFileData.stream().collect(Collectors.toMap(SysFileData::getFileId, Function.identity()));
             for (SysPublication publication : sysPublications) {
                 SysFileData imgFile = map.get(publication.getImgId());
@@ -120,6 +134,9 @@ public class SysPublicationServiceImpl implements ISysPublicationService {
      */
     @Override
     public int deleteSysPublicationByIds(Long[] ids) {
+
+
+
         return sysPublicationMapper.deleteSysPublicationByIds(ids);
     }
 

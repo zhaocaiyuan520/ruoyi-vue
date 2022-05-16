@@ -44,6 +44,6 @@ public class SysFileServiceImpl implements ISysFileService {
 
     @Override
     public List<SysFileData> selectSysFileList(SysFileData fileData) {
-        return sysFileMapper.selectSysFileList(fileData);
+        return sysFileMapper.querySysFileList(fileData);
     }
 }
