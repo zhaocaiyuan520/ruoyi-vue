@@ -53,7 +53,6 @@ public class SysPublicationController extends BaseController {
     public TableDataInfo list(SysPublication sysPublication) {
         startPage();
         List<SysPublication> list = sysPublicationService.selectSysPublicationList(sysPublication);
-        Map<String, List<SysPublication>> yearMap = list.stream().collect(Collectors.groupingBy(SysPublication::getYear));
         return getDataTable(list);
     }
 

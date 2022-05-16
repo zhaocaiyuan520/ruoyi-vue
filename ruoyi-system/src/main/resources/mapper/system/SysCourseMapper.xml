@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCourseMapper">
+    
+    <resultMap type="SysCourse" id="SysCourseResult">
+        <result property="courseId"    column="course_id"    />
+        <result property="courseName"    column="course_name"    />
+        <result property="courseNameen"    column="course_nameEn"    />
+        <result property="courseIntroduce"    column="course_introduce"    />
+        <result property="courseIntroduceen"    column="course_introduceEn"    />
+        <result property="courseType"    column="course_type"    />
+        <result property="fileId"    column="file_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysCourseVo">
+        select course_id, course_name, course_nameEn, course_introduce, course_introduceEn, course_type, file_id, create_time, create_by, update_by, update_time, del_flag from sys_course
+    </sql>
+
+    <select id="selectSysCourseList" parameterType="SysCourse" resultMap="SysCourseResult">
+        <include refid="selectSysCourseVo"/>
+        <where>  
+            <if test="courseName != null  and courseName != ''"> and course_name like concat('%', #{courseName}, '%')</if>
+            <if test="courseNameen != null  and courseNameen != ''"> and course_nameEn = #{courseNameen}</if>
+            <if test="courseIntroduce != null  and courseIntroduce != ''"> and course_introduce = #{courseIntroduce}</if>
+            <if test="courseIntroduceen != null  and courseIntroduceen != ''"> and course_introduceEn = #{courseIntroduceen}</if>
+            <if test="courseType != null  and courseType != ''"> and course_type = #{courseType}</if>
+            <if test="fileId != null "> and file_id = #{fileId}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysCourseByCourseId" parameterType="Long" resultMap="SysCourseResult">
+        <include refid="selectSysCourseVo"/>
+        where course_id = #{courseId}
+    </select>
+        
+    <insert id="insertSysCourse" parameterType="SysCourse" useGeneratedKeys="true" keyProperty="courseId">
+        insert into sys_course
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="courseName != null">course_name,</if>
+            <if test="courseNameen != null">course_nameEn,</if>
+            <if test="courseIntroduce != null">course_introduce,</if>
+            <if test="courseIntroduceen != null">course_introduceEn,</if>
+            <if test="courseType != null">course_type,</if>
+            <if test="fileId != null">file_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="courseName != null">#{courseName},</if>
+            <if test="courseNameen != null">#{courseNameen},</if>
+            <if test="courseIntroduce != null">#{courseIntroduce},</if>
+            <if test="courseIntroduceen != null">#{courseIntroduceen},</if>
+            <if test="courseType != null">#{courseType},</if>
+            <if test="fileId != null">#{fileId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCourse" parameterType="SysCourse">
+        update sys_course
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="courseName != null">course_name = #{courseName},</if>
+            <if test="courseNameen != null">course_nameEn = #{courseNameen},</if>
+            <if test="courseIntroduce != null">course_introduce = #{courseIntroduce},</if>
+            <if test="courseIntroduceen != null">course_introduceEn = #{courseIntroduceen},</if>
+            <if test="courseType != null">course_type = #{courseType},</if>
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where course_id = #{courseId}
+    </update>
+
+    <delete id="deleteSysCourseByCourseId" parameterType="Long">
+        delete from sys_course where course_id = #{courseId}
+    </delete>
+
+    <delete id="deleteSysCourseByCourseIds" parameterType="String">
+        delete from sys_course where course_id in 
+        <foreach item="courseId" collection="array" open="(" separator="," close=")">
+            #{courseId}
+        </foreach>
+    </delete>
+</mapper>
