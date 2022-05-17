@@ -58,13 +58,13 @@ public class SysLbtServiceImpl implements ISysLbtService
     public int insertSysLbt(SysLbt sysLbt)
     {
         sysLbt.setCreateTime(DateUtils.getNowDate());
-        sysLbtMapper.insertSysLbt(sysLbt);
-        // 状态 临时文件 ，修改为轮播图新增确定后的状态 模板文件
-        SysFileData sysFileData = new SysFileData();
-        sysFileData.setFileId(sysLbt.getFileId());
-        sysFileData.setUpdateTime(new Date());
-        sysFileData.setFileFlag("1");
-        return sysFileMapper.updateSysFile(sysFileData);
+        return sysLbtMapper.insertSysLbt(sysLbt);
+//        // 状态 临时文件 ，修改为轮播图新增确定后的状态 模板文件
+//        SysFileData sysFileData = new SysFileData();
+//        sysFileData.setFileId(sysLbt.getFileId());
+//        sysFileData.setUpdateTime(new Date());
+//        sysFileData.setFileFlag("1");
+//        return sysFileMapper.updateSysFile(sysFileData);
     }
 
     /**

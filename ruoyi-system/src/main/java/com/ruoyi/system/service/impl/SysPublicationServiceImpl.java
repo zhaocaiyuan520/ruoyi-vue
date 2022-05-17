@@ -71,11 +71,11 @@ public class SysPublicationServiceImpl implements ISysPublicationService {
                 SysFileData imgFile = map.get(publication.getImgId());
                 SysFileData pdfFile = map.get(publication.getPdfId());
 
-                publication.setImgName(imgFile.getRealName());
-                publication.setImgAddress(imgFile.getFilePath());
+                publication.setImgName(imgFile != null ? imgFile.getRealName() : "");
+                publication.setImgAddress(imgFile != null ? imgFile.getFilePath() : "");
 
-                publication.setPdfName(pdfFile.getRealName());
-                publication.setPdfAddress(pdfFile.getFilePath());
+                publication.setPdfName(pdfFile != null ? pdfFile.getRealName() : "");
+                publication.setPdfAddress(pdfFile != null ? pdfFile.getFilePath() : "");
             }
         }
 
@@ -92,25 +92,25 @@ public class SysPublicationServiceImpl implements ISysPublicationService {
     @Override
     public int insertSysPublication(SysPublication sysPublication) {
         sysPublication.setCreateTime(DateUtils.getNowDate());
-        sysPublicationMapper.insertSysPublication(sysPublication);
+        return sysPublicationMapper.insertSysPublication(sysPublication);
 
-        // 状态 临时文件 ，修改为轮播图新增确定后的状态 模板文件
-        if (sysPublication.getImgId() != null) {
-            SysFileData sysFileData = new SysFileData();
-            sysFileData.setFileId(sysPublication.getImgId());
-            sysFileData.setUpdateTime(new Date());
-            sysFileData.setFileFlag("1");
-            sysFileMapper.updateSysFile(sysFileData);
-        }
-        if (sysPublication.getPdfId() != null) {
-            SysFileData sysFileData = new SysFileData();
-            sysFileData.setFileId(sysPublication.getPdfId());
-            sysFileData.setUpdateTime(new Date());
-            sysFileData.setFileFlag("1");
-            sysFileMapper.updateSysFile(sysFileData);
-        }
-
-        return 1;
+//        // 状态 临时文件 ，修改为轮播图新增确定后的状态 模板文件
+//        if (sysPublication.getImgId() != null) {
+//            SysFileData sysFileData = new SysFileData();
+//            sysFileData.setFileId(sysPublication.getImgId());
+//            sysFileData.setUpdateTime(new Date());
+//            sysFileData.setFileFlag("1");
+//            sysFileMapper.updateSysFile(sysFileData);
+//        }
+//        if (sysPublication.getPdfId() != null) {
+//            SysFileData sysFileData = new SysFileData();
+//            sysFileData.setFileId(sysPublication.getPdfId());
+//            sysFileData.setUpdateTime(new Date());
+//            sysFileData.setFileFlag("1");
+//            sysFileMapper.updateSysFile(sysFileData);
+//        }
+//
+//        return 1;
 
     }
 
@@ -134,7 +134,6 @@ public class SysPublicationServiceImpl implements ISysPublicationService {
      */
     @Override
     public int deleteSysPublicationByIds(Long[] ids) {
-
 
 
         return sysPublicationMapper.deleteSysPublicationByIds(ids);

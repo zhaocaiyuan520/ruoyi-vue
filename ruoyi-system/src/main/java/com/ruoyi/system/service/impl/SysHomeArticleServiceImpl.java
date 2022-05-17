@@ -69,14 +69,14 @@ public class SysHomeArticleServiceImpl implements ISysHomeArticleService
     {
         sysHomeArticle.setCreateTime(DateUtils.getNowDate());
 
-        sysHomeArticleMapper.insertSysHomeArticle(sysHomeArticle);
+        return sysHomeArticleMapper.insertSysHomeArticle(sysHomeArticle);
 
-        // 状态 临时文件 ，修改为文章 新增确定后的状态 模板文件
-        SysFileData sysFileData = new SysFileData();
-        sysFileData.setFileId(sysHomeArticle.getFileId());
-        sysFileData.setUpdateTime(new Date());
-        sysFileData.setFileFlag("1");
-        return sysFileMapper.updateSysFile(sysFileData);
+//        // 状态 临时文件 ，修改为文章 新增确定后的状态 模板文件
+//        SysFileData sysFileData = new SysFileData();
+//        sysFileData.setFileId(sysHomeArticle.getFileId());
+//        sysFileData.setUpdateTime(new Date());
+//        sysFileData.setFileFlag("1");
+//        return sysFileMapper.updateSysFile(sysFileData);
 
     }
 

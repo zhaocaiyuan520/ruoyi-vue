@@ -1157,3 +1157,55 @@ CREATE TABLE `sys_course`
     `del_flag`           char(1)       DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
     PRIMARY KEY (`course_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8 COMMENT='课件表';
+
+-- ------------------------模块四 成员 -----------------------------
+--  人员详情表
+DROP TABLE
+    IF EXISTS sys_personnel;
+CREATE TABLE `sys_personnel`
+(
+    `personnel_id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '人员id',
+    `personnel_type`        char(1) COMMENT '0:博导、1:博士、2:研究生',
+    `file_id`               bigint(20) DEFAULT '0' COMMENT '头像id，文件表存储地址和名称',
+    `personnel_name`        varchar(300)  DEFAULT NULL COMMENT '姓名中文',
+    `personnel_nameEn`      varchar(300)  DEFAULT NULL COMMENT '姓名英文',
+    `personnel_introduce`   varchar(3000) DEFAULT NULL COMMENT '简介中文',
+    `personnel_introduceEn` varchar(3000) DEFAULT NULL COMMENT '简介英文',
+    `personnel_address`     varchar(500)  DEFAULT NULL COMMENT '地址中文',
+    `personnel_addressEn`   varchar(500)  DEFAULT NULL COMMENT '地址中文',
+    `tel_number`            varchar(20)   DEFAULT '' COMMENT 'Tel号码',
+    `fax_number`            varchar(20)   DEFAULT '' COMMENT 'Fax号码',
+    `email`                 varchar(50)   DEFAULT '' COMMENT '邮箱',
+    `twitter`               varchar(50)   DEFAULT '' COMMENT '推特',
+    `linkedIn`              varchar(50)   DEFAULT '' COMMENT 'linked',
+    `personnel_date`        varchar(10)   DEFAULT '' COMMENT '人员日期',
+    `current_position`      varchar(500)  DEFAULT '' COMMENT '当前位置',
+    `current_positionEn`    varchar(500)  DEFAULT '' COMMENT '当前位置',
+    `graduate_type`         char(1)       DEFAULT '0' COMMENT '0:在读，1：已毕业',
+    `personnel_contact`     varchar(500)  DEFAULT NULL COMMENT 'contact中文',
+    `personnel_contactEn`   varchar(500)  DEFAULT NULL COMMENT 'contact英文',
+    `create_time`           datetime      DEFAULT NULL COMMENT '创建时间',
+    `create_by`             varchar(64)   DEFAULT '' COMMENT '创建者',
+    `update_by`             varchar(64)   DEFAULT '' COMMENT '更新者',
+    `update_time`           datetime      DEFAULT NULL COMMENT '更新时间',
+    `del_flag`              char(1)       DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+    PRIMARY KEY (`personnel_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8 COMMENT='人员详情表';
+
+--  教育经历表
+DROP TABLE
+    IF EXISTS sys_edu;
+
+CREATE TABLE `sys_edu`
+(
+    `edu_id`           BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `personnel_id`     BIGINT (20) NOT NULL COMMENT '人员id',
+    `edu_experience`   VARCHAR(300) DEFAULT NULL COMMENT '教育经历中文',
+    `edu_experienceEn` VARCHAR(300) DEFAULT NULL COMMENT '教育经历英文',
+    `create_time`      datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_by`        VARCHAR(64)  DEFAULT '' COMMENT '创建者',
+    `update_by`        VARCHAR(64)  DEFAULT '' COMMENT '更新者',
+    `update_time`      datetime     DEFAULT NULL COMMENT '更新时间',
+    `del_flag`         CHAR(1)      DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+    PRIMARY KEY (`edu_id`)
+) ENGINE = INNODB AUTO_INCREMENT = 201 DEFAULT CHARSET = utf8 COMMENT = '教育经历表';

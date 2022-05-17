@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysPersonnelMapper">
+    
+    <resultMap type="SysPersonnel" id="SysPersonnelResult">
+        <result property="personnelId"    column="personnel_id"    />
+        <result property="personnelType"    column="personnel_type"    />
+        <result property="fileId"    column="file_id"    />
+        <result property="personnelName"    column="personnel_name"    />
+        <result property="personnelNameen"    column="personnel_nameEn"    />
+        <result property="personnelIntroduce"    column="personnel_introduce"    />
+        <result property="personnelIntroduceen"    column="personnel_introduceEn"    />
+        <result property="personnelAddress"    column="personnel_address"    />
+        <result property="personnelAddressen"    column="personnel_addressEn"    />
+        <result property="telNumber"    column="tel_number"    />
+        <result property="faxNumber"    column="fax_number"    />
+        <result property="email"    column="email"    />
+        <result property="twitter"    column="twitter"    />
+        <result property="linkedin"    column="linkedIn"    />
+        <result property="personnelDate"    column="personnel_date"    />
+        <result property="currentPosition"    column="current_position"    />
+        <result property="currentPositionen"    column="current_positionEn"    />
+        <result property="graduateType"    column="graduate_type"    />
+        <result property="personnelContact"    column="personnel_contact"    />
+        <result property="personnelContacten"    column="personnel_contactEn"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysPersonnelVo">
+        select personnel_id, personnel_type, file_id, personnel_name, personnel_nameEn, personnel_introduce, personnel_introduceEn, personnel_address, personnel_addressEn, tel_number, fax_number, email, twitter, linkedIn, personnel_date, current_position, current_positionEn, graduate_type, personnel_contact, personnel_contactEn, create_time, create_by, update_by, update_time, del_flag from sys_personnel
+    </sql>
+
+    <select id="selectSysPersonnelList" parameterType="SysPersonnel" resultMap="SysPersonnelResult">
+        <include refid="selectSysPersonnelVo"/>
+        <where>  
+            <if test="personnelType != null  and personnelType != ''"> and personnel_type = #{personnelType}</if>
+            <if test="fileId != null "> and file_id = #{fileId}</if>
+            <if test="personnelName != null  and personnelName != ''"> and personnel_name like concat('%', #{personnelName}, '%')</if>
+            <if test="personnelNameen != null  and personnelNameen != ''"> and personnel_nameEn = #{personnelNameen}</if>
+            <if test="personnelIntroduce != null  and personnelIntroduce != ''"> and personnel_introduce = #{personnelIntroduce}</if>
+            <if test="personnelIntroduceen != null  and personnelIntroduceen != ''"> and personnel_introduceEn = #{personnelIntroduceen}</if>
+            <if test="personnelAddress != null  and personnelAddress != ''"> and personnel_address = #{personnelAddress}</if>
+            <if test="personnelAddressen != null  and personnelAddressen != ''"> and personnel_addressEn = #{personnelAddressen}</if>
+            <if test="telNumber != null  and telNumber != ''"> and tel_number = #{telNumber}</if>
+            <if test="faxNumber != null  and faxNumber != ''"> and fax_number = #{faxNumber}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="twitter != null  and twitter != ''"> and twitter = #{twitter}</if>
+            <if test="linkedin != null  and linkedin != ''"> and linkedIn = #{linkedin}</if>
+            <if test="personnelDate != null  and personnelDate != ''"> and personnel_date = #{personnelDate}</if>
+            <if test="currentPosition != null  and currentPosition != ''"> and current_position = #{currentPosition}</if>
+            <if test="currentPositionen != null  and currentPositionen != ''"> and current_positionEn = #{currentPositionen}</if>
+            <if test="graduateType != null  and graduateType != ''"> and graduate_type = #{graduateType}</if>
+            <if test="personnelContact != null  and personnelContact != ''"> and personnel_contact = #{personnelContact}</if>
+            <if test="personnelContacten != null  and personnelContacten != ''"> and personnel_contactEn = #{personnelContacten}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysPersonnelByPersonnelId" parameterType="Long" resultMap="SysPersonnelResult">
+        <include refid="selectSysPersonnelVo"/>
+        where personnel_id = #{personnelId}
+    </select>
+        
+    <insert id="insertSysPersonnel" parameterType="SysPersonnel" useGeneratedKeys="true" keyProperty="personnelId">
+        insert into sys_personnel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="personnelType != null">personnel_type,</if>
+            <if test="fileId != null">file_id,</if>
+            <if test="personnelName != null">personnel_name,</if>
+            <if test="personnelNameen != null">personnel_nameEn,</if>
+            <if test="personnelIntroduce != null">personnel_introduce,</if>
+            <if test="personnelIntroduceen != null">personnel_introduceEn,</if>
+            <if test="personnelAddress != null">personnel_address,</if>
+            <if test="personnelAddressen != null">personnel_addressEn,</if>
+            <if test="telNumber != null">tel_number,</if>
+            <if test="faxNumber != null">fax_number,</if>
+            <if test="email != null">email,</if>
+            <if test="twitter != null">twitter,</if>
+            <if test="linkedin != null">linkedIn,</if>
+            <if test="personnelDate != null">personnel_date,</if>
+            <if test="currentPosition != null">current_position,</if>
+            <if test="currentPositionen != null">current_positionEn,</if>
+            <if test="graduateType != null">graduate_type,</if>
+            <if test="personnelContact != null">personnel_contact,</if>
+            <if test="personnelContacten != null">personnel_contactEn,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="personnelType != null">#{personnelType},</if>
+            <if test="fileId != null">#{fileId},</if>
+            <if test="personnelName != null">#{personnelName},</if>
+            <if test="personnelNameen != null">#{personnelNameen},</if>
+            <if test="personnelIntroduce != null">#{personnelIntroduce},</if>
+            <if test="personnelIntroduceen != null">#{personnelIntroduceen},</if>
+            <if test="personnelAddress != null">#{personnelAddress},</if>
+            <if test="personnelAddressen != null">#{personnelAddressen},</if>
+            <if test="telNumber != null">#{telNumber},</if>
+            <if test="faxNumber != null">#{faxNumber},</if>
+            <if test="email != null">#{email},</if>
+            <if test="twitter != null">#{twitter},</if>
+            <if test="linkedin != null">#{linkedin},</if>
+            <if test="personnelDate != null">#{personnelDate},</if>
+            <if test="currentPosition != null">#{currentPosition},</if>
+            <if test="currentPositionen != null">#{currentPositionen},</if>
+            <if test="graduateType != null">#{graduateType},</if>
+            <if test="personnelContact != null">#{personnelContact},</if>
+            <if test="personnelContacten != null">#{personnelContacten},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysPersonnel" parameterType="SysPersonnel">
+        update sys_personnel
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="personnelType != null">personnel_type = #{personnelType},</if>
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="personnelName != null">personnel_name = #{personnelName},</if>
+            <if test="personnelNameen != null">personnel_nameEn = #{personnelNameen},</if>
+            <if test="personnelIntroduce != null">personnel_introduce = #{personnelIntroduce},</if>
+            <if test="personnelIntroduceen != null">personnel_introduceEn = #{personnelIntroduceen},</if>
+            <if test="personnelAddress != null">personnel_address = #{personnelAddress},</if>
+            <if test="personnelAddressen != null">personnel_addressEn = #{personnelAddressen},</if>
+            <if test="telNumber != null">tel_number = #{telNumber},</if>
+            <if test="faxNumber != null">fax_number = #{faxNumber},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="twitter != null">twitter = #{twitter},</if>
+            <if test="linkedin != null">linkedIn = #{linkedin},</if>
+            <if test="personnelDate != null">personnel_date = #{personnelDate},</if>
+            <if test="currentPosition != null">current_position = #{currentPosition},</if>
+            <if test="currentPositionen != null">current_positionEn = #{currentPositionen},</if>
+            <if test="graduateType != null">graduate_type = #{graduateType},</if>
+            <if test="personnelContact != null">personnel_contact = #{personnelContact},</if>
+            <if test="personnelContacten != null">personnel_contactEn = #{personnelContacten},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where personnel_id = #{personnelId}
+    </update>
+
+    <delete id="deleteSysPersonnelByPersonnelId" parameterType="Long">
+        delete from sys_personnel where personnel_id = #{personnelId}
+    </delete>
+
+    <delete id="deleteSysPersonnelByPersonnelIds" parameterType="String">
+        delete from sys_personnel where personnel_id in 
+        <foreach item="personnelId" collection="array" open="(" separator="," close=")">
+            #{personnelId}
+        </foreach>
+    </delete>
+</mapper>

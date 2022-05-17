@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysEduMapper">
+    
+    <resultMap type="SysEdu" id="SysEduResult">
+        <result property="eduId"    column="edu_id"    />
+        <result property="personnelId"    column="personnel_id"    />
+        <result property="eduExperience"    column="edu_experience"    />
+        <result property="eduExperienceen"    column="edu_experienceEn"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysEduVo">
+        select edu_id, personnel_id, edu_experience, edu_experienceEn, create_time, create_by, update_by, update_time, del_flag from sys_edu
+    </sql>
+
+    <select id="selectSysEduList" parameterType="SysEdu" resultMap="SysEduResult">
+        <include refid="selectSysEduVo"/>
+        <where>  
+            <if test="personnelId != null "> and personnel_id = #{personnelId}</if>
+            <if test="eduExperience != null  and eduExperience != ''"> and edu_experience = #{eduExperience}</if>
+            <if test="eduExperienceen != null  and eduExperienceen != ''"> and edu_experienceEn = #{eduExperienceen}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysEduByEduId" parameterType="Long" resultMap="SysEduResult">
+        <include refid="selectSysEduVo"/>
+        where edu_id = #{eduId}
+    </select>
+        
+    <insert id="insertSysEdu" parameterType="SysEdu" useGeneratedKeys="true" keyProperty="eduId">
+        insert into sys_edu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="personnelId != null">personnel_id,</if>
+            <if test="eduExperience != null">edu_experience,</if>
+            <if test="eduExperienceen != null">edu_experienceEn,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="personnelId != null">#{personnelId},</if>
+            <if test="eduExperience != null">#{eduExperience},</if>
+            <if test="eduExperienceen != null">#{eduExperienceen},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysEdu" parameterType="SysEdu">
+        update sys_edu
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="personnelId != null">personnel_id = #{personnelId},</if>
+            <if test="eduExperience != null">edu_experience = #{eduExperience},</if>
+            <if test="eduExperienceen != null">edu_experienceEn = #{eduExperienceen},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where edu_id = #{eduId}
+    </update>
+
+    <delete id="deleteSysEduByEduId" parameterType="Long">
+        delete from sys_edu where edu_id = #{eduId}
+    </delete>
+
+    <delete id="deleteSysEduByEduIds" parameterType="String">
+        delete from sys_edu where edu_id in 
+        <foreach item="eduId" collection="array" open="(" separator="," close=")">
+            #{eduId}
+        </foreach>
+    </delete>
+</mapper>
