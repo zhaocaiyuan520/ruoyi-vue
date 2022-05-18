@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
+import java.util.List;
+
 /**
  * 人员详情对象 sys_personnel
  * 
@@ -96,6 +98,11 @@ public class SysPersonnel extends BaseEntity
 
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
+
+    /**
+     *教育经历
+     */
+    private List<SysEdu> eduList;
 
     public void setPersonnelId(Long personnelId) 
     {
@@ -285,6 +292,14 @@ public class SysPersonnel extends BaseEntity
     public String getDelFlag() 
     {
         return delFlag;
+    }
+
+    public List<SysEdu> getEduList() {
+        return eduList;
+    }
+
+    public void setEduList(List<SysEdu> eduList) {
+        this.eduList = eduList;
     }
 
     @Override

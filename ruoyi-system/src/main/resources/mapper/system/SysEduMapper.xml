@@ -83,4 +83,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{eduId}
         </foreach>
     </delete>
+
+
+    <delete id="deleteSysEduByPersonnelId" parameterType="Long">
+        delete from sys_edu where personnel_id = #{personnelId}
+    </delete>
 </mapper>

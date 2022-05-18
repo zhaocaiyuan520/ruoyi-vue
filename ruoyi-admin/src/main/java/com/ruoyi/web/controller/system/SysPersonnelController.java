@@ -2,8 +2,12 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.system.domain.SysEdu;
+import com.ruoyi.system.service.ISysEduService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,10 +38,12 @@ public class SysPersonnelController extends BaseController
     @Autowired
     private ISysPersonnelService sysPersonnelService;
 
+    @Autowired
+    private ISysEduService sysEduService;
     /**
      * 查询人员详情列表
      */
-    @PreAuthorize("@ss.hasPermi('system:personnel:list')")
+//    @PreAuthorize("@ss.hasPermi('system:personnel:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysPersonnel sysPersonnel)
     {
@@ -77,7 +83,12 @@ public class SysPersonnelController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody SysPersonnel sysPersonnel)
     {
-        return toAjax(sysPersonnelService.insertSysPersonnel(sysPersonnel));
+        int personnelId = sysPersonnelService.insertSysPersonnel(sysPersonnel);
+        //用户教育经历维护到教育经历表中
+        List<SysEdu> eduList = sysPersonnel.getEduList();
+        insertEduData((long) personnelId, eduList);
+
+        return toAjax(personnelId);
     }
 
     /**
@@ -88,7 +99,25 @@ public class SysPersonnelController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody SysPersonnel sysPersonnel)
     {
-        return toAjax(sysPersonnelService.updateSysPersonnel(sysPersonnel));
+        sysPersonnelService.updateSysPersonnel(sysPersonnel);
+
+        //修改人员信息，修改教育经历 先删除 在插入
+        Long personnelId = sysPersonnel.getPersonnelId();
+        List<SysEdu> eduList = sysPersonnel.getEduList();
+        sysEduService.deleteSysEduByPersonnelId(personnelId);
+        insertEduData(personnelId, eduList);
+
+
+        return toAjax(1);
+    }
+
+    private void insertEduData(Long personnelId, List<SysEdu> eduList) {
+        if (!CollectionUtils.isEmpty(eduList)) {
+            for (SysEdu sysEdu : eduList) {
+                sysEdu.setPersonnelId(personnelId);
+                sysEduService.insertSysEdu(sysEdu);
+            }
+        }
     }
 
     /**
@@ -99,6 +128,11 @@ public class SysPersonnelController extends BaseController
 	@DeleteMapping("/{personnelIds}")
     public AjaxResult remove(@PathVariable Long[] personnelIds)
     {
-        return toAjax(sysPersonnelService.deleteSysPersonnelByPersonnelIds(personnelIds));
+        sysPersonnelService.deleteSysPersonnelByPersonnelIds(personnelIds);
+        //删除教育经历
+        for (Long personnelId : personnelIds) {
+            sysEduService.deleteSysEduByPersonnelId(personnelId);
+        }
+        return toAjax(1);
     }
 }

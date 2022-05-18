@@ -58,4 +58,6 @@ public interface ISysEduService
      * @return 结果
      */
     public int deleteSysEduByEduId(Long eduId);
+
+    public int deleteSysEduByPersonnelId(Long eduId);
 }

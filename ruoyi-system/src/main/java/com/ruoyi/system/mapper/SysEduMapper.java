@@ -58,4 +58,6 @@ public interface SysEduMapper
      * @return 结果
      */
     public int deleteSysEduByEduIds(Long[] eduIds);
+
+    public int deleteSysEduByPersonnelId(Long personnelId);
 }

@@ -93,4 +93,16 @@ public class SysEduServiceImpl implements ISysEduService
     {
         return sysEduMapper.deleteSysEduByEduId(eduId);
     }
+
+    /**
+     * 删除教育经历信息
+     *
+     * @param eduId 教育经历主键
+     * @return 结果
+     */
+    @Override
+    public int deleteSysEduByPersonnelId(Long personnelId)
+    {
+        return sysEduMapper.deleteSysEduByPersonnelId(personnelId);
+    }
 }
