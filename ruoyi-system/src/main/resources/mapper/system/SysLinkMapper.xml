@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysLinkMapper">
+    
+    <resultMap type="SysLink" id="SysLinkResult">
+        <result property="linkId"    column="link_id"    />
+        <result property="linkTitle"    column="link_title"    />
+        <result property="linkTitleen"    column="link_titleEn"    />
+        <result property="linkUrl"    column="link_url"    />
+        <result property="linkType"    column="link_type"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysLinkVo">
+        select link_id, link_title, link_titleEn, link_url, link_type, create_time, create_by, update_by, update_time, del_flag from sys_link
+    </sql>
+
+    <select id="selectSysLinkList" parameterType="SysLink" resultMap="SysLinkResult">
+        <include refid="selectSysLinkVo"/>
+        <where>  
+            <if test="linkTitle != null  and linkTitle != ''"> and link_title = #{linkTitle}</if>
+            <if test="linkTitleen != null  and linkTitleen != ''"> and link_titleEn = #{linkTitleen}</if>
+            <if test="linkUrl != null  and linkUrl != ''"> and link_url = #{linkUrl}</if>
+            <if test="linkType != null  and linkType != ''"> and link_type = #{linkType}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysLinkByLinkId" parameterType="Long" resultMap="SysLinkResult">
+        <include refid="selectSysLinkVo"/>
+        where link_id = #{linkId}
+    </select>
+        
+    <insert id="insertSysLink" parameterType="SysLink" useGeneratedKeys="true" keyProperty="linkId">
+        insert into sys_link
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="linkTitle != null">link_title,</if>
+            <if test="linkTitleen != null">link_titleEn,</if>
+            <if test="linkUrl != null">link_url,</if>
+            <if test="linkType != null">link_type,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="linkTitle != null">#{linkTitle},</if>
+            <if test="linkTitleen != null">#{linkTitleen},</if>
+            <if test="linkUrl != null">#{linkUrl},</if>
+            <if test="linkType != null">#{linkType},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysLink" parameterType="SysLink">
+        update sys_link
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="linkTitle != null">link_title = #{linkTitle},</if>
+            <if test="linkTitleen != null">link_titleEn = #{linkTitleen},</if>
+            <if test="linkUrl != null">link_url = #{linkUrl},</if>
+            <if test="linkType != null">link_type = #{linkType},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where link_id = #{linkId}
+    </update>
+
+    <delete id="deleteSysLinkByLinkId" parameterType="Long">
+        delete from sys_link where link_id = #{linkId}
+    </delete>
+
+    <delete id="deleteSysLinkByLinkIds" parameterType="String">
+        delete from sys_link where link_id in 
+        <foreach item="linkId" collection="array" open="(" separator="," close=")">
+            #{linkId}
+        </foreach>
+    </delete>
+</mapper>

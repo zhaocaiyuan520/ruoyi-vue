@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysRecruitmentMapper">
+    
+    <resultMap type="SysRecruitment" id="SysRecruitmentResult">
+        <result property="recruitId"    column="recruit_id"    />
+        <result property="recruitPosition"    column="recruit_position"    />
+        <result property="recruitPositionen"    column="recruit_positionEn"    />
+        <result property="recruitDescribe"    column="recruit_describe"    />
+        <result property="recruitDescribeen"    column="recruit_describeEn"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysRecruitmentVo">
+        select recruit_id, recruit_position, recruit_positionEn, recruit_describe, recruit_describeEn, create_time, create_by, update_by, update_time, del_flag from sys_recruitment
+    </sql>
+
+    <select id="selectSysRecruitmentList" parameterType="SysRecruitment" resultMap="SysRecruitmentResult">
+        <include refid="selectSysRecruitmentVo"/>
+        <where>  
+            <if test="recruitPosition != null  and recruitPosition != ''"> and recruit_position = #{recruitPosition}</if>
+            <if test="recruitPositionen != null  and recruitPositionen != ''"> and recruit_positionEn = #{recruitPositionen}</if>
+            <if test="recruitDescribe != null  and recruitDescribe != ''"> and recruit_describe = #{recruitDescribe}</if>
+            <if test="recruitDescribeen != null  and recruitDescribeen != ''"> and recruit_describeEn = #{recruitDescribeen}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysRecruitmentByRecruitId" parameterType="Long" resultMap="SysRecruitmentResult">
+        <include refid="selectSysRecruitmentVo"/>
+        where recruit_id = #{recruitId}
+    </select>
+        
+    <insert id="insertSysRecruitment" parameterType="SysRecruitment" useGeneratedKeys="true" keyProperty="recruitId">
+        insert into sys_recruitment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recruitPosition != null">recruit_position,</if>
+            <if test="recruitPositionen != null">recruit_positionEn,</if>
+            <if test="recruitDescribe != null">recruit_describe,</if>
+            <if test="recruitDescribeen != null">recruit_describeEn,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recruitPosition != null">#{recruitPosition},</if>
+            <if test="recruitPositionen != null">#{recruitPositionen},</if>
+            <if test="recruitDescribe != null">#{recruitDescribe},</if>
+            <if test="recruitDescribeen != null">#{recruitDescribeen},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysRecruitment" parameterType="SysRecruitment">
+        update sys_recruitment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="recruitPosition != null">recruit_position = #{recruitPosition},</if>
+            <if test="recruitPositionen != null">recruit_positionEn = #{recruitPositionen},</if>
+            <if test="recruitDescribe != null">recruit_describe = #{recruitDescribe},</if>
+            <if test="recruitDescribeen != null">recruit_describeEn = #{recruitDescribeen},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where recruit_id = #{recruitId}
+    </update>
+
+    <delete id="deleteSysRecruitmentByRecruitId" parameterType="Long">
+        delete from sys_recruitment where recruit_id = #{recruitId}
+    </delete>
+
+    <delete id="deleteSysRecruitmentByRecruitIds" parameterType="String">
+        delete from sys_recruitment where recruit_id in 
+        <foreach item="recruitId" collection="array" open="(" separator="," close=")">
+            #{recruitId}
+        </foreach>
+    </delete>
+</mapper>
