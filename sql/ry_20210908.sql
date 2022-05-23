@@ -1209,3 +1209,42 @@ CREATE TABLE `sys_edu`
     `del_flag`         CHAR(1)      DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
     PRIMARY KEY (`edu_id`)
 ) ENGINE = INNODB AUTO_INCREMENT = 201 DEFAULT CHARSET = utf8 COMMENT = '教育经历表';
+
+-- ------------------------模块五 招聘 -----------------------------
+--  招聘表
+DROP TABLE
+    IF EXISTS sys_recruitment;
+
+CREATE TABLE `sys_recruitment`
+(
+    `recruit_id`         BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '招聘id',
+    `recruit_position`   VARCHAR(300)  DEFAULT NULL COMMENT '招聘职位中文',
+    `recruit_positionEn` VARCHAR(300)  DEFAULT NULL COMMENT '招聘职位英文',
+    `recruit_describe`   VARCHAR(3000) DEFAULT NULL COMMENT '招聘描述中文',
+    `recruit_describeEn` VARCHAR(3000) DEFAULT NULL COMMENT '招聘描述英文',
+    `create_time`        datetime      DEFAULT NULL COMMENT '创建时间',
+    `create_by`          VARCHAR(64)   DEFAULT '' COMMENT '创建者',
+    `update_by`          VARCHAR(64)   DEFAULT '' COMMENT '更新者',
+    `update_time`        datetime      DEFAULT NULL COMMENT '更新时间',
+    `del_flag`           CHAR(1)       DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+    PRIMARY KEY (`recruit_id`)
+) ENGINE = INNODB AUTO_INCREMENT = 201 DEFAULT CHARSET = utf8 COMMENT = '招聘表';
+
+-- 链接表
+DROP TABLE
+    IF EXISTS sys_link;
+
+CREATE TABLE `sys_link`
+(
+    `link_id`         BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '链接id',
+    `link_title`   VARCHAR(500) DEFAULT NULL COMMENT '链接标题中文',
+    `link_titleEn` VARCHAR(500) DEFAULT NULL COMMENT '链接标题英文',
+    `link_url`   VARCHAR(500) DEFAULT NULL COMMENT '链接URL地址',
+    `link_type`  CHAR(1) 	  DEFAULT '0'  COMMENT '0:penn;1:meeting;2:journals',
+    `create_time`        datetime      DEFAULT NULL COMMENT '创建时间',
+    `create_by`          VARCHAR(64)   DEFAULT '' COMMENT '创建者',
+    `update_by`          VARCHAR(64)   DEFAULT '' COMMENT '更新者',
+    `update_time`        datetime      DEFAULT NULL COMMENT '更新时间',
+    `del_flag`           CHAR(1)       DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+    PRIMARY KEY (`link_id`)
+) ENGINE = INNODB AUTO_INCREMENT = 201 DEFAULT CHARSET = utf8 COMMENT = '链接表';
