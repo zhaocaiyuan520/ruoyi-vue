@@ -37,7 +37,7 @@ public class SysRecruitmentController extends BaseController
     /**
      * 查询招聘列表
      */
-    @PreAuthorize("@ss.hasPermi('system:recruitment:list')")
+//    @PreAuthorize("@ss.hasPermi('system:recruitment:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysRecruitment sysRecruitment)
     {

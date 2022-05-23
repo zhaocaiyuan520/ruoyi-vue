@@ -37,7 +37,7 @@ public class SysLinkController extends BaseController
     /**
      * 查询链接列表
      */
-    @PreAuthorize("@ss.hasPermi('system:link:list')")
+//    @PreAuthorize("@ss.hasPermi('system:link:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysLink sysLink)
     {
