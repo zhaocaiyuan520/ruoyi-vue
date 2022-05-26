@@ -99,6 +99,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 // 对于登录login 注册register 验证码captchaImage 允许匿名访问
                 //不需要token 官网的首页 可以过滤掉接口
                 .antMatchers("/login",
+                        "/getInfo",
+                        "/getRouters",
                         "/register",
                         "/captchaImage"
                 ).anonymous()
