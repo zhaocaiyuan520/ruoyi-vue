@@ -38,7 +38,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
     @PostConstruct
     public void init()
     {
-//        loadingDictCache();
+        loadingDictCache();
     }
 
     /**

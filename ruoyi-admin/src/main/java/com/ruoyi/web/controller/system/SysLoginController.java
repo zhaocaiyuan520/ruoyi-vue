@@ -1,10 +1,7 @@
 package com.ruoyi.web.controller.system;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.ruoyi.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +34,6 @@ public class SysLoginController
     @Autowired
     private SysPermissionService permissionService;
 
-    @Autowired
-    private ISysUserService sysUserService;
-
     /**
      * 登录方法
      * 
@@ -65,8 +59,7 @@ public class SysLoginController
     @GetMapping("getInfo")
     public AjaxResult getInfo()
     {
-//        SysUser user = SecurityUtils.getLoginUser().getUser();
-        SysUser user = sysUserService.selectUserByUserName("admin");
+        SysUser user = SecurityUtils.getLoginUser().getUser();
         // 角色集合
         Set<String> roles = permissionService.getRolePermission(user);
         // 权限集合
@@ -86,9 +79,8 @@ public class SysLoginController
     @GetMapping("getRouters")
     public AjaxResult getRouters()
     {
-       // Long userId = SecurityUtils.getUserId();
-        SysUser user = sysUserService.selectUserByUserName("admin");
-        List<SysMenu> menus = menuService.selectMenuTreeByUserId(user.getUserId());
+        Long userId = SecurityUtils.getUserId();
+        List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
         return AjaxResult.success(menuService.buildMenus(menus));
     }
 }
