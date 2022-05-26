@@ -52,6 +52,15 @@ public class SysPersonnel extends BaseEntity
     @Excel(name = "地址中文")
     private String personnelAddressen;
 
+    /** labs */
+    @Excel(name = "labs")
+    private String labs;
+
+    /** offices */
+    @Excel(name = "offices")
+    private String offices;
+
+
     /** Tel号码 */
     @Excel(name = "Tel号码")
     private String telNumber;
@@ -302,6 +311,22 @@ public class SysPersonnel extends BaseEntity
         this.eduList = eduList;
     }
 
+    public String getLabs() {
+        return labs;
+    }
+
+    public void setLabs(String labs) {
+        this.labs = labs;
+    }
+
+    public String getOffices() {
+        return offices;
+    }
+
+    public void setOffices(String offices) {
+        this.offices = offices;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -314,6 +339,8 @@ public class SysPersonnel extends BaseEntity
             .append("personnelIntroduceen", getPersonnelIntroduceen())
             .append("personnelAddress", getPersonnelAddress())
             .append("personnelAddressen", getPersonnelAddressen())
+            .append("labs", getLabs())
+            .append("offices", getOffices())
             .append("telNumber", getTelNumber())
             .append("faxNumber", getFaxNumber())
             .append("email", getEmail())

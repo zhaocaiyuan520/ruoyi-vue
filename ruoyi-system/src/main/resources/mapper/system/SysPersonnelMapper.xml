@@ -14,6 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="personnelIntroduceen"    column="personnel_introduceEn"    />
         <result property="personnelAddress"    column="personnel_address"    />
         <result property="personnelAddressen"    column="personnel_addressEn"    />
+        <result property="labs"    column="labs"    />
+        <result property="offices"    column="offices"    />
         <result property="telNumber"    column="tel_number"    />
         <result property="faxNumber"    column="fax_number"    />
         <result property="email"    column="email"    />
@@ -33,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectSysPersonnelVo">
-        select personnel_id, personnel_type, file_id, personnel_name, personnel_nameEn, personnel_introduce, personnel_introduceEn, personnel_address, personnel_addressEn, tel_number, fax_number, email, twitter, linkedIn, personnel_date, current_position, current_positionEn, graduate_type, personnel_contact, personnel_contactEn, create_time, create_by, update_by, update_time, del_flag from sys_personnel
+        select personnel_id, personnel_type, file_id, personnel_name, personnel_nameEn, personnel_introduce, personnel_introduceEn, personnel_address, personnel_addressEn, labs, offices,tel_number, fax_number, email, twitter, linkedIn, personnel_date, current_position, current_positionEn, graduate_type, personnel_contact, personnel_contactEn, create_time, create_by, update_by, update_time, del_flag from sys_personnel
     </sql>
 
     <select id="selectSysPersonnelList" parameterType="SysPersonnel" resultMap="SysPersonnelResult">
@@ -47,6 +49,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="personnelIntroduceen != null  and personnelIntroduceen != ''"> and personnel_introduceEn = #{personnelIntroduceen}</if>
             <if test="personnelAddress != null  and personnelAddress != ''"> and personnel_address = #{personnelAddress}</if>
             <if test="personnelAddressen != null  and personnelAddressen != ''"> and personnel_addressEn = #{personnelAddressen}</if>
+            <if test="labs != null  and labs != ''"> and labs = #{labs}</if>
+            <if test="offices != null  and offices != ''"> and offices = #{offices}</if>
             <if test="telNumber != null  and telNumber != ''"> and tel_number = #{telNumber}</if>
             <if test="faxNumber != null  and faxNumber != ''"> and fax_number = #{faxNumber}</if>
             <if test="email != null  and email != ''"> and email = #{email}</if>
@@ -77,6 +81,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="personnelIntroduceen != null">personnel_introduceEn,</if>
             <if test="personnelAddress != null">personnel_address,</if>
             <if test="personnelAddressen != null">personnel_addressEn,</if>
+
+            <if test="labs != null">labs,</if>
+            <if test="offices != null">offices,</if>
+
             <if test="telNumber != null">tel_number,</if>
             <if test="faxNumber != null">fax_number,</if>
             <if test="email != null">email,</if>
@@ -103,6 +111,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="personnelIntroduceen != null">#{personnelIntroduceen},</if>
             <if test="personnelAddress != null">#{personnelAddress},</if>
             <if test="personnelAddressen != null">#{personnelAddressen},</if>
+
+            <if test="labs != null">#{labs},</if>
+            <if test="offices != null">#{offices},</if>
+
             <if test="telNumber != null">#{telNumber},</if>
             <if test="faxNumber != null">#{faxNumber},</if>
             <if test="email != null">#{email},</if>
@@ -133,6 +145,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="personnelIntroduceen != null">personnel_introduceEn = #{personnelIntroduceen},</if>
             <if test="personnelAddress != null">personnel_address = #{personnelAddress},</if>
             <if test="personnelAddressen != null">personnel_addressEn = #{personnelAddressen},</if>
+
+            <if test="labs != null">labs = #{labs},</if>
+            <if test="offices != null">offices = #{offices},</if>
+
             <if test="telNumber != null">tel_number = #{telNumber},</if>
             <if test="faxNumber != null">fax_number = #{faxNumber},</if>
             <if test="email != null">email = #{email},</if>
