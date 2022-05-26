@@ -43,7 +43,7 @@ public class LogAspect
      *
      * @param joinPoint 切点
      */
-    @AfterReturning(pointcut = "@annotation(controllerLog)", returning = "jsonResult")
+//    @AfterReturning(pointcut = "@annotation(controllerLog)", returning = "jsonResult")
     public void doAfterReturning(JoinPoint joinPoint, Log controllerLog, Object jsonResult)
     {
         handleLog(joinPoint, controllerLog, null, jsonResult);
