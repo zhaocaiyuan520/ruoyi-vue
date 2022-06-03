@@ -1080,9 +1080,9 @@ CREATE TABLE `sys_lbt`
 -- 21、主页详情
 -- ----------------------------
 DROP TABLE
-    IF EXISTS sys_home_Info;
+    IF EXISTS sys_home_info;
 
-CREATE TABLE sys_home_Info
+CREATE TABLE sys_home_info
 (
     home_id         BIGINT (20) NOT NULL auto_increment COMMENT '首页详情id',
     home_about      VARCHAR(5000) DEFAULT '' COMMENT 'about中文',

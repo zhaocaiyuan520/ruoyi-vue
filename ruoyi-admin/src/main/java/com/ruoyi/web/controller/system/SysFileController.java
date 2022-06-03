@@ -56,7 +56,7 @@ public class SysFileController extends BaseController {
      * @param file
      * @return
      */
-    @GetMapping("/upload")
+    @PostMapping("/upload")
     public AjaxResult upload(MultipartFile file, String fileType) throws Exception {
         SysFileData sysFIleData = new SysFileData();
         String path = RuoYiConfig.getProfile();
