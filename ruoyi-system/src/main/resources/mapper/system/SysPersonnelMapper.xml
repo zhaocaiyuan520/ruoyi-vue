@@ -25,6 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="currentPosition"    column="current_position"    />
         <result property="currentPositionen"    column="current_positionEn"    />
         <result property="graduateType"    column="graduate_type"    />
+        <result property="teamType"    column="team_type"    />
         <result property="personnelContact"    column="personnel_contact"    />
         <result property="personnelContacten"    column="personnel_contactEn"    />
         <result property="createTime"    column="create_time"    />
@@ -35,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectSysPersonnelVo">
-        select personnel_id, personnel_type, file_id, personnel_name, personnel_nameEn, personnel_introduce, personnel_introduceEn, personnel_address, personnel_addressEn, labs, offices,tel_number, fax_number, email, twitter, linkedIn, personnel_date, current_position, current_positionEn, graduate_type, personnel_contact, personnel_contactEn, create_time, create_by, update_by, update_time, del_flag from sys_personnel
+        select personnel_id, personnel_type, file_id, personnel_name, personnel_nameEn, personnel_introduce, personnel_introduceEn, personnel_address, personnel_addressEn, labs, offices,tel_number, fax_number, email, twitter, linkedIn, personnel_date, current_position, current_positionEn, graduate_type, team_type,personnel_contact, personnel_contactEn, create_time, create_by, update_by, update_time, del_flag from sys_personnel
     </sql>
 
     <select id="selectSysPersonnelList" parameterType="SysPersonnel" resultMap="SysPersonnelResult">
@@ -60,6 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="currentPosition != null  and currentPosition != ''"> and current_position = #{currentPosition}</if>
             <if test="currentPositionen != null  and currentPositionen != ''"> and current_positionEn = #{currentPositionen}</if>
             <if test="graduateType != null  and graduateType != ''"> and graduate_type = #{graduateType}</if>
+            <if test="teamType != null  and teamType != ''"> and team_type = #{teamType}</if>
             <if test="personnelContact != null  and personnelContact != ''"> and personnel_contact = #{personnelContact}</if>
             <if test="personnelContacten != null  and personnelContacten != ''"> and personnel_contactEn = #{personnelContacten}</if>
         </where>
@@ -94,6 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="currentPosition != null">current_position,</if>
             <if test="currentPositionen != null">current_positionEn,</if>
             <if test="graduateType != null">graduate_type,</if>
+            <if test="teamType != null">team_type,</if>
             <if test="personnelContact != null">personnel_contact,</if>
             <if test="personnelContacten != null">personnel_contactEn,</if>
             <if test="createTime != null">create_time,</if>
@@ -158,6 +161,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="currentPosition != null">current_position = #{currentPosition},</if>
             <if test="currentPositionen != null">current_positionEn = #{currentPositionen},</if>
             <if test="graduateType != null">graduate_type = #{graduateType},</if>
+            <if test="teamType != null">team_type = #{teamType},</if>
             <if test="personnelContact != null">personnel_contact = #{personnelContact},</if>
             <if test="personnelContacten != null">personnel_contactEn = #{personnelContacten},</if>
             <if test="createTime != null">create_time = #{createTime},</if>

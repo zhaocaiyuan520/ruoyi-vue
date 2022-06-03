@@ -1184,6 +1184,7 @@ CREATE TABLE `sys_personnel`
     `current_position`      varchar(500)  DEFAULT '' COMMENT '当前位置',
     `current_positionEn`    varchar(500)  DEFAULT '' COMMENT '当前位置',
     `graduate_type`         char(1)       DEFAULT '0' COMMENT '0:在读，1：已毕业',
+    `team_type`             char(1)       DEFAULT '0' COMMENT '团队成员 0：是， 1：不是',
     `personnel_contact`     varchar(500)  DEFAULT NULL COMMENT 'contact中文',
     `personnel_contactEn`   varchar(500)  DEFAULT NULL COMMENT 'contact英文',
     `create_time`           datetime      DEFAULT NULL COMMENT '创建时间',
@@ -1202,8 +1203,8 @@ CREATE TABLE `sys_edu`
 (
     `edu_id`           BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `personnel_id`     BIGINT (20) NOT NULL COMMENT '人员id',
-    `edu_experience`   VARCHAR(300) DEFAULT NULL COMMENT '教育经历中文',
-    `edu_experienceEn` VARCHAR(300) DEFAULT NULL COMMENT '教育经历英文',
+    `edu_experience`   VARCHAR(5000) DEFAULT NULL COMMENT '教育经历中文',
+    `edu_experienceEn` VARCHAR(5000) DEFAULT NULL COMMENT '教育经历英文',
     `create_time`      datetime     DEFAULT NULL COMMENT '创建时间',
     `create_by`        VARCHAR(64)  DEFAULT '' COMMENT '创建者',
     `update_by`        VARCHAR(64)  DEFAULT '' COMMENT '更新者',

@@ -97,6 +97,10 @@ public class SysPersonnel extends BaseEntity
     @Excel(name = "0:在读，1：已毕业")
     private String graduateType;
 
+    /** 团队成员 0:是，1：不是 */
+    @Excel(name = "0:在读，1：已毕业")
+    private String teamType;
+
     /** contact中文 */
     @Excel(name = "contact中文")
     private String personnelContact;
@@ -325,6 +329,14 @@ public class SysPersonnel extends BaseEntity
 
     public void setOffices(String offices) {
         this.offices = offices;
+    }
+
+    public String getTeamType() {
+        return teamType;
+    }
+
+    public void setTeamType(String teamType) {
+        this.teamType = teamType;
     }
 
     @Override
