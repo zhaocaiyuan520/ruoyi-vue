@@ -33,14 +33,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
         <result property="delFlag"    column="del_flag"    />
+
+        <result property="fileId"    column="file_id"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="realName"    column="real_name"    />
+
     </resultMap>
 
     <sql id="selectSysPersonnelVo">
-        select personnel_id, personnel_type, file_id, personnel_name, personnel_nameEn, personnel_introduce, personnel_introduceEn, personnel_address, personnel_addressEn, labs, offices,tel_number, fax_number, email, twitter, linkedIn, personnel_date, current_position, current_positionEn, graduate_type, team_type,personnel_contact, personnel_contactEn, create_time, create_by, update_by, update_time, del_flag from sys_personnel
+        select a.personnel_id, a.personnel_type, a.file_id, a.personnel_name, a.personnel_nameEn, a.personnel_introduce,
+               a.personnel_introduceEn, a.personnel_address, a.personnel_addressEn, a.labs, a.offices,a.tel_number, a.fax_number, a.email,
+               a.twitter, a.linkedIn, a.personnel_date, a.current_position, a.current_positionEn, a.graduate_type, a.team_type,
+               a.personnel_contact, a.personnel_contactEn, a.create_time, a.create_by, a.update_by, a.update_time, del_flag,
+               b.file_id, b.file_path, b.real_name  from sys_personnel
     </sql>
 
     <select id="selectSysPersonnelList" parameterType="SysPersonnel" resultMap="SysPersonnelResult">
         <include refid="selectSysPersonnelVo"/>
+        left join sys_file b on a.file_id = b.file_id
         <where>  
             <if test="personnelType != null  and personnelType != ''"> and personnel_type = #{personnelType}</if>
             <if test="fileId != null "> and file_id = #{fileId}</if>
@@ -69,6 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectSysPersonnelByPersonnelId" parameterType="Long" resultMap="SysPersonnelResult">
         <include refid="selectSysPersonnelVo"/>
+        left join sys_file b on a.file_id = b.file_id
         where personnel_id = #{personnelId}
     </select>
         

@@ -28,6 +28,14 @@ public class SysPersonnel extends BaseEntity
     @Excel(name = "头像id，文件表存储地址和名称")
     private Long fileId;
 
+    /** 文件路径 */
+    @Excel(name = "文件路径")
+    private String filePath;
+
+    /** 真实名称 */
+    @Excel(name = "真实名称")
+    private String realName;
+
     /** 姓名中文 */
     @Excel(name = "姓名中文")
     private String personnelName;
@@ -337,6 +345,22 @@ public class SysPersonnel extends BaseEntity
 
     public void setTeamType(String teamType) {
         this.teamType = teamType;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     @Override
