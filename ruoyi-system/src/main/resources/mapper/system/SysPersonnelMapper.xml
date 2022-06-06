@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectSysPersonnelList" parameterType="SysPersonnel" resultMap="SysPersonnelResult">
         <include refid="selectSysPersonnelVo"/>
-        left join sys_file b on a.file_id = b.file_id
+        a left join sys_file b on a.file_id = b.file_id
         <where>  
             <if test="personnelType != null  and personnelType != ''"> and personnel_type = #{personnelType}</if>
             <if test="fileId != null "> and file_id = #{fileId}</if>
