@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select a.personnel_id, a.personnel_type, a.file_id, a.personnel_name, a.personnel_nameEn, a.personnel_introduce,
                a.personnel_introduceEn, a.personnel_address, a.personnel_addressEn, a.labs, a.offices,a.tel_number, a.fax_number, a.email,
                a.twitter, a.linkedIn, a.personnel_date, a.current_position, a.current_positionEn, a.graduate_type, a.team_type,
-               a.personnel_contact, a.personnel_contactEn, a.create_time, a.create_by, a.update_by, a.update_time, del_flag,
+               a.personnel_contact, a.personnel_contactEn, a.create_time, a.create_by, a.update_by, a.update_time, a.del_flag,
                b.file_path, b.real_name  from sys_personnel
     </sql>
 
@@ -51,35 +51,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectSysPersonnelVo"/>
         a left join sys_file b on a.file_id = b.file_id
         <where>  
-            <if test="personnelType != null  and personnelType != ''"> and personnel_type = #{personnelType}</if>
-            <if test="fileId != null "> and file_id = #{fileId}</if>
-            <if test="personnelName != null  and personnelName != ''"> and personnel_name like concat('%', #{personnelName}, '%')</if>
-            <if test="personnelNameen != null  and personnelNameen != ''"> and personnel_nameEn = #{personnelNameen}</if>
-            <if test="personnelIntroduce != null  and personnelIntroduce != ''"> and personnel_introduce = #{personnelIntroduce}</if>
-            <if test="personnelIntroduceen != null  and personnelIntroduceen != ''"> and personnel_introduceEn = #{personnelIntroduceen}</if>
-            <if test="personnelAddress != null  and personnelAddress != ''"> and personnel_address = #{personnelAddress}</if>
-            <if test="personnelAddressen != null  and personnelAddressen != ''"> and personnel_addressEn = #{personnelAddressen}</if>
-            <if test="labs != null  and labs != ''"> and labs = #{labs}</if>
-            <if test="offices != null  and offices != ''"> and offices = #{offices}</if>
-            <if test="telNumber != null  and telNumber != ''"> and tel_number = #{telNumber}</if>
-            <if test="faxNumber != null  and faxNumber != ''"> and fax_number = #{faxNumber}</if>
-            <if test="email != null  and email != ''"> and email = #{email}</if>
-            <if test="twitter != null  and twitter != ''"> and twitter = #{twitter}</if>
-            <if test="linkedin != null  and linkedin != ''"> and linkedIn = #{linkedin}</if>
-            <if test="personnelDate != null  and personnelDate != ''"> and personnel_date = #{personnelDate}</if>
-            <if test="currentPosition != null  and currentPosition != ''"> and current_position = #{currentPosition}</if>
-            <if test="currentPositionen != null  and currentPositionen != ''"> and current_positionEn = #{currentPositionen}</if>
-            <if test="graduateType != null  and graduateType != ''"> and graduate_type = #{graduateType}</if>
-            <if test="teamType != null  and teamType != ''"> and team_type = #{teamType}</if>
-            <if test="personnelContact != null  and personnelContact != ''"> and personnel_contact = #{personnelContact}</if>
-            <if test="personnelContacten != null  and personnelContacten != ''"> and personnel_contactEn = #{personnelContacten}</if>
+            <if test="personnelType != null  and personnelType != ''"> and a.personnel_type = #{personnelType}</if>
+            <if test="fileId != null "> and a.file_id = #{fileId}</if>
+            <if test="personnelName != null  and personnelName != ''"> and a.personnel_name like concat('%', #{personnelName}, '%')</if>
+            <if test="personnelNameen != null  and personnelNameen != ''"> and a.personnel_nameEn = #{personnelNameen}</if>
+            <if test="personnelIntroduce != null  and personnelIntroduce != ''"> and a.personnel_introduce = #{personnelIntroduce}</if>
+            <if test="personnelIntroduceen != null  and personnelIntroduceen != ''"> and a.personnel_introduceEn = #{personnelIntroduceen}</if>
+            <if test="personnelAddress != null  and personnelAddress != ''"> and a.personnel_address = #{personnelAddress}</if>
+            <if test="personnelAddressen != null  and personnelAddressen != ''"> and a.personnel_addressEn = #{personnelAddressen}</if>
+            <if test="labs != null  and labs != ''"> and a.labs = #{labs}</if>
+            <if test="offices != null  and offices != ''"> and a.offices = #{offices}</if>
+            <if test="telNumber != null  and telNumber != ''"> and a.tel_number = #{telNumber}</if>
+            <if test="faxNumber != null  and faxNumber != ''"> and a.fax_number = #{faxNumber}</if>
+            <if test="email != null  and email != ''"> and a.email = #{email}</if>
+            <if test="twitter != null  and twitter != ''"> and a.twitter = #{twitter}</if>
+            <if test="linkedin != null  and linkedin != ''"> and a.linkedIn = #{linkedin}</if>
+            <if test="personnelDate != null  and personnelDate != ''"> and a.personnel_date = #{personnelDate}</if>
+            <if test="currentPosition != null  and currentPosition != ''"> and a.current_position = #{currentPosition}</if>
+            <if test="currentPositionen != null  and currentPositionen != ''"> and a.current_positionEn = #{currentPositionen}</if>
+            <if test="graduateType != null  and graduateType != ''"> and a.graduate_type = #{graduateType}</if>
+            <if test="teamType != null  and teamType != ''"> and a.team_type = #{teamType}</if>
+            <if test="personnelContact != null  and personnelContact != ''"> and a.personnel_contact = #{personnelContact}</if>
+            <if test="personnelContacten != null  and personnelContacten != ''"> and a.personnel_contactEn = #{personnelContacten}</if>
         </where>
     </select>
     
     <select id="selectSysPersonnelByPersonnelId" parameterType="Long" resultMap="SysPersonnelResult">
         <include refid="selectSysPersonnelVo"/>
-        left join sys_file b on a.file_id = b.file_id
-        where personnel_id = #{personnelId}
+        a left join sys_file b on a.file_id = b.file_id
+        where a.personnel_id = #{personnelId}
     </select>
         
     <insert id="insertSysPersonnel" parameterType="SysPersonnel" useGeneratedKeys="true" keyProperty="personnelId">
