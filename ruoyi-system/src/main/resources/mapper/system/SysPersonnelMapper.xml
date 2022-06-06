@@ -34,7 +34,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
         <result property="delFlag"    column="del_flag"    />
 
-        <result property="fileId"    column="file_id"    />
         <result property="filePath"    column="file_path"    />
         <result property="realName"    column="real_name"    />
 
@@ -45,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                a.personnel_introduceEn, a.personnel_address, a.personnel_addressEn, a.labs, a.offices,a.tel_number, a.fax_number, a.email,
                a.twitter, a.linkedIn, a.personnel_date, a.current_position, a.current_positionEn, a.graduate_type, a.team_type,
                a.personnel_contact, a.personnel_contactEn, a.create_time, a.create_by, a.update_by, a.update_time, del_flag,
-               b.file_id, b.file_path, b.real_name  from sys_personnel
+               b.file_path, b.real_name  from sys_personnel
     </sql>
 
     <select id="selectSysPersonnelList" parameterType="SysPersonnel" resultMap="SysPersonnelResult">
