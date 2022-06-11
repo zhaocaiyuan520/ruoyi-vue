@@ -1251,3 +1251,17 @@ CREATE TABLE `sys_link`
     `del_flag`           CHAR(1)       DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
     PRIMARY KEY (`link_id`)
 ) ENGINE = INNODB AUTO_INCREMENT = 201 DEFAULT CHARSET = utf8 COMMENT = '链接表';
+
+-- 领域标签表
+CREATE TABLE `sys_realm_label`
+(
+    `label_id`       BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '标签id',
+    `publication_id` BIGINT (20) NOT NULL COMMENT '出版物id',
+    `label_type`     VARCHAR(64) DEFAULT '' COMMENT '领域标签',
+    `create_time`    datetime    DEFAULT NULL COMMENT '创建时间',
+    `create_by`      VARCHAR(64) DEFAULT '' COMMENT '创建者',
+    `update_by`      VARCHAR(64) DEFAULT '' COMMENT '更新者',
+    `update_time`    datetime    DEFAULT NULL COMMENT '更新时间',
+    `del_flag`       CHAR(1)     DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+    PRIMARY KEY (`label_id`)
+) ENGINE = INNODB AUTO_INCREMENT = 201 DEFAULT CHARSET = utf8 COMMENT = '领域标签表';

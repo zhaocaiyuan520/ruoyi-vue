@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysRealmLabelMapper">
+    
+    <resultMap type="SysRealmLabel" id="SysRealmLabelResult">
+        <result property="labelId"    column="label_id"    />
+        <result property="publicationId"    column="publication_id"    />
+        <result property="labelType"    column="label_type"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysRealmLabelVo">
+        select label_id, publication_id, label_type, create_time, create_by, update_by, update_time, del_flag from sys_realm_label
+    </sql>
+
+    <select id="selectSysRealmLabelList" parameterType="SysRealmLabel" resultMap="SysRealmLabelResult">
+        <include refid="selectSysRealmLabelVo"/>
+        <where>  
+            <if test="publicationId != null "> and publication_id = #{publicationId}</if>
+            <if test="labelType != null  and labelType != ''"> and label_type = #{labelType}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysRealmLabelByLabelId" parameterType="Long" resultMap="SysRealmLabelResult">
+        <include refid="selectSysRealmLabelVo"/>
+        where label_id = #{labelId}
+    </select>
+        
+    <insert id="insertSysRealmLabel" parameterType="SysRealmLabel" useGeneratedKeys="true" keyProperty="labelId">
+        insert into sys_realm_label
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="publicationId != null">publication_id,</if>
+            <if test="labelType != null">label_type,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="publicationId != null">#{publicationId},</if>
+            <if test="labelType != null">#{labelType},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysRealmLabel" parameterType="SysRealmLabel">
+        update sys_realm_label
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="publicationId != null">publication_id = #{publicationId},</if>
+            <if test="labelType != null">label_type = #{labelType},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where label_id = #{labelId}
+    </update>
+
+    <delete id="deleteSysRealmLabelByLabelId" parameterType="Long">
+        delete from sys_realm_label where label_id = #{labelId}
+    </delete>
+
+    <delete id="deleteSysRealmLabelByLabelIds" parameterType="String">
+        delete from sys_realm_label where label_id in 
+        <foreach item="labelId" collection="array" open="(" separator="," close=")">
+            #{labelId}
+        </foreach>
+    </delete>
+</mapper>

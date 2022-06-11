@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
@@ -62,9 +63,32 @@ public class SysPublicationController extends BaseController {
 //    @PreAuthorize("@ss.hasPermi('system:publication:list')")
     @GetMapping("/map")
     public Map<String, List<SysPublication>> map(SysPublication sysPublication) {
-        startPage();
+
         List<SysPublication> list = sysPublicationService.selectSysPublicationList(sysPublication);
         Map<String, List<SysPublication>> yearMap = list.stream().collect(Collectors.groupingBy(SysPublication::getYear, LinkedHashMap::new, Collectors.toList()));
+
+        // 根据标签筛选
+        List<String> labelList = sysPublication.getLabelList();
+        if(!CollectionUtils.isEmpty(labelList)) {
+            Map<String, List<SysPublication>> yearMapResult = new LinkedHashMap<>();
+            for (String year : yearMap.keySet()) {
+                List<SysPublication> filterList = yearMap.get(year).stream().filter(sysPublication1 -> {
+                    if(CollectionUtils.isEmpty(sysPublication1.getLabelList())){
+                        return false;
+                    }
+                    List<String> res = new ArrayList<>();
+                    res.addAll(labelList);
+                    res.retainAll(sysPublication1.getLabelList());
+                    if (res.size() > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }).collect(Collectors.toList());
+                yearMapResult.put(year, filterList);
+            }
+            return yearMapResult;
+        }
 
         return yearMap;
     }

@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
+import java.util.List;
+
 /**
  * 出版物模块详情对象 sys_publication
  * 
@@ -54,7 +56,9 @@ public class SysPublication extends BaseEntity
     @Excel(name = "文献图片地址")
     private String imgAddress;
 
-
+    /** 文献标签 */
+    @Excel(name = "文献标签")
+        private List<String> labelList;
 
 
 
@@ -173,5 +177,13 @@ public class SysPublication extends BaseEntity
 
     public void setImgAddress(String imgAddress) {
         this.imgAddress = imgAddress;
+    }
+
+    public List<String> getLabelList() {
+        return labelList;
+    }
+
+    public void setLabelList(List<String> labelList) {
+        this.labelList = labelList;
     }
 }
