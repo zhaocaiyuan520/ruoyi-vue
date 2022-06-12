@@ -42,6 +42,7 @@ public class SysFileController extends BaseController {
 
     @Autowired
     private ISysFileService sysFileService;
+
     @GetMapping("/list")
     public TableDataInfo list(SysFileData fileData)
     {
@@ -62,13 +63,15 @@ public class SysFileController extends BaseController {
         String path = RuoYiConfig.getProfile();
         String realName = file.getOriginalFilename();
         sysFIleData.setRealName(realName);
-        //0:首页轮播图，1：PDF文章
+        //0:首页轮播图，1：PDF文章 ,2: 常用文件
         sysFIleData.setFileType(fileType);
         //根据类型区分不同文件夹
         if (fileType.equals(Constants.IS_IMG_FILE)) {
             path = path + File.separatorChar + Constants.IMG_PATH;
         } else if (fileType.equals(Constants.IS_PDF_FILE)) {
             path = path + File.separatorChar + Constants.PDF_PATH;
+        }else if (fileType.equals(Constants.IS_CY_FILE)){
+            path = path + File.separatorChar + Constants.CY_PATH;
         }
         logger.info("上传文件路径为~~~~~~~~~~~~~~~~~~~~,{}", path);
         String upload = FileUploadUtils.upload(path, file);

@@ -22,7 +22,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <select id="querySysFileList" parameterType="SysFile" resultMap="SysFileResult">
-        select * from sys_file where del_flag = 0
+        select * from sys_file
+        <where>
+            <if test="filePath != null  and filePath != ''"> and file_path = #{filePath}</if>
+            <if test="realName != null  and realName != ''"> and real_name like concat('%', #{realName}, '%')</if>
+            <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
+            <if test="fileFlag != null  and fileFlag != ''"> and file_flag = #{fileFlag}</if>
+        </where>
+        order by file_id
     </select>
 
 
@@ -34,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
             <if test="fileFlag != null  and fileFlag != ''"> and file_flag = #{fileFlag}</if>
         </where>
-        order by order_num
+        order by file_id
     </select>
     
     <select id="selectSysFileByfileId" parameterType="Long" resultMap="SysFileResult">

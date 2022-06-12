@@ -174,7 +174,10 @@ public class Constants
      * PDF文件为 1
      */
     public static final String IS_PDF_FILE = "1";
-
+    /**
+     * 常用文件为 3
+     */
+    public static final String IS_CY_FILE = "2";
     /**
      * 图片文件 目录
      */
@@ -183,4 +186,8 @@ public class Constants
      * PDF文件 目录
      */
     public static final String PDF_PATH = "PDF";
+    /**
+     * 常用文件 目录
+     */
+    public static final String CY_PATH = "CY";
 }
