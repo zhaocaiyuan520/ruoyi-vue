@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 轮播图Controller
@@ -106,5 +107,25 @@ public class SysFileController extends BaseController {
             logger.error("下载文件失败", e);
             return error("下载文件失败");
         }
+    }
+
+    /**
+     * 删除文件
+     */
+//    @Log(title = "文件删除", businessType = BusinessType.DELETE)
+    @GetMapping("/remove/{fileIds}")
+    public AjaxResult remove(@PathVariable Long[] fileIds)
+    {
+
+        // 删除文件表 和删除文件
+        List<SysFileData> sysFileData = sysFileService.selectSysFileListByIds(fileIds);
+        for (SysFileData fileData : sysFileData) {
+            String filePath = fileData.getFilePath();
+            if(StringUtils.isNotEmpty(filePath)){
+                FileUtils.deleteFile(filePath);
+            }
+        }
+        sysFileService.deleteSysFileByLbtIds(fileIds);
+        return toAjax(1);
     }
 }
